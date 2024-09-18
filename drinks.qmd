@@ -10,17 +10,18 @@ format: html
 ```{r}
 drinks <- read.csv("all_drinks.csv")
 
+
 library(tidyverse)
 library(ggplot2)
 
-ggplot(drinks, aes(x = strCategory) +
-  geom_histogram(binwidth = 1000) +
+ggplot(drinks, aes(x = strCategory)) +
+  geom_bar() +
   labs(
     x = "Drink Category",
     y = "Count",
     title = "Analysis of amount of drinks in each drink category",
-    subtitle = "binwidth = 1000"
-  )
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-Here is my data viz for food consumption:
+Here is my data viz for food consumption!

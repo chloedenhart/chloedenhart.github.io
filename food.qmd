@@ -17,14 +17,14 @@ food <- read.csv("food_consumption.csv")
 library(tidyverse)
 library(ggplot2)
 
-ggplot(food, aes(x = food_category, y = consumption, color = food_category)) +
+ggplot(food, aes(x = co2_emmission, y = consumption)) +
   geom_point() +
   labs(
-    x = "Food Category",
+    x = "CO2 Emissions",
     y = "Consumption",
-    title = "Relationship between foods and their consumption",
+    title = "Relationship food consumption and CO2 emissions",
   )
 ```
 
-Here is my data viz for food consumption:
+Here is my data viz for food consumption!
 

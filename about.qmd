@@ -1,5 +1,6 @@
 ---
 title: "About"
+image: media/headshot.jpeg
 ---
 
 About this site:

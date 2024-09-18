@@ -1,7 +1,7 @@
 ---
 title: "chloedenhart.github.io"
 
-image: media/headshot.jpeg
+image: images/sbt.JPG
 toc: false
 about: 
   template: jolla
@@ -9,7 +9,7 @@ about:
   image-width: 17em
   links: 
     - text: GitHub
-      href: https://github.com/chloedenhart/chloedenhart.github.io
+      href: https://chloedenhart.github.io
 ---
 
 This is a Quarto website.

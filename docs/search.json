@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "drinks.html",
+    "href": "drinks.html",
+    "title": "All Drinks",
+    "section": "",
+    "text": "drinks &lt;- read.csv(\"all_drinks.csv\")\n\n\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nlibrary(ggplot2)\n\nggplot(drinks, aes(x = strCategory)) +\n  geom_bar() +\n  labs(\n    x = \"Drink Category\",\n    y = \"Count\",\n    title = \"Analysis of amount of drinks in each drink category\",\n  ) +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))\n\n\n\n\n\n\n\n\nHere is my data viz for food consumption!"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site:\nWelcome to my website! I am a student at Pomona College majoring in Economics and minoring in Data Science. I am a member of the Pomona Woman’s Lacrosse team. Outside of Pomona, I am an avid camper and hiker!\nHere is a photo from one of my camping trips in the Channel Islands!"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "chloedenhart.github.io",
+    "section": "",
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "food.html",
+    "href": "food.html",
+    "title": "Food Consumption",
+    "section": "",
+    "text": "food &lt;- read.csv(\"food_consumption.csv\")\n\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nlibrary(ggplot2)\n\nggplot(food, aes(x = co2_emmission, y = consumption)) +\n  geom_point() +\n  labs(\n    x = \"CO2 Emissions\",\n    y = \"Consumption\",\n    title = \"Relationship food consumption and CO2 emissions\",\n  )\n\n\n\n\n\n\n\n\nHere is my data viz for food consumption!"
+  }
+]
