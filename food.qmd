@@ -1,0 +1,12 @@
+---
+title: "Food Consumption"
+description: |
+  Analysis of food consumption data from TidyTuesday
+author: Jo Hardin
+date: September 18, 2024
+format: html
+---
+
+
+Here is my data viz for food consumption:
+

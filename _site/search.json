@@ -1,10 +1,10 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "food.html",
+    "href": "food.html",
+    "title": "Food Consumption",
     "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
+    "text": "Here is my data viz for food consumption:"
   },
   {
     "objectID": "index.html",
@@ -12,5 +12,12 @@
     "title": "chloedenhart.github.io",
     "section": "",
     "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site:\nWelcome to my website! I am a student at Pomona College majoring in Economics and minoring in Data Science. I am a member of the Pomona Woman’s Lacrosse team. Outside of Pomona, I am an avid camper and hiker!\n\n\n\nChannel Islands\n\n\nHere is a photo from one of my camping trips in the Channel Islands!"
   }
 ]
