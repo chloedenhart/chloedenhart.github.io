@@ -6,6 +6,5 @@ About this site:
 
 Welcome to my website! I am a student at Pomona College majoring in Economics and minoring in Data Science. I am a member of the Pomona Woman's Lacrosse team. Outside of Pomona, I am an avid camper and hiker!
 
-![Channel Islands](path/to/your/P3110372.jpg)
 
 Here is a photo from one of my camping trips in the Channel Islands!

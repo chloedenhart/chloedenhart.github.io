@@ -1,5 +1,6 @@
 project:
   type: website
+  output-dir: docs
 
 website:
   title: "My First Website"
@@ -13,6 +14,8 @@ website:
         menu:
           - href: food.html
             text: "Food Consumption"
+          - href: drinks.html
+            text: "All Drinks"
 
 format:
   html:
