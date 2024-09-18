@@ -1,21 +1,4 @@
 ---
-title: "chloedenhart.github.io"
-
-image: images/sbt.JPG
-toc: false
-about: 
-  template: jolla
-  image-shape: round
-  image-width: 17em
-  links: 
-    - text: GitHub
-      href: https://chloedenhart.github.io
+title: "Hello"
 ---
-
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
-
-```{r}
-1 + 1
-```
+Welcome to my page!

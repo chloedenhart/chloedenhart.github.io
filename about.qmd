@@ -1,11 +1,20 @@
 ---
-title: "About"
-image: media/headshot.jpeg
+title: "Chloe Denhart"
+image: media/spt.JPG
+toc: false
+about: 
+  template: jolla
+  image-shape: round
+  image-width: 17em
+  links:
+    - text: LinkedIn
+      href: www.linkedin.com/in/chloe-denhart-b8a349293 
+    - text: GitHub
+      href: https://chloedenhart.github.io
+    - text: Email
+      href: crdq2023@mymail.pomona.edu
 ---
 
 About this site:
 
 Welcome to my website! I am a student at Pomona College majoring in Economics and minoring in Data Science. I am a member of the Pomona Woman's Lacrosse team. Outside of Pomona, I am an avid camper and hiker!
-
-
-Here is a photo from one of my camping trips in the Channel Islands!
