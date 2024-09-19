@@ -5,6 +5,9 @@ description: |
 author: Jo Hardin
 date: September 18, 2024
 format: html
+execute: 
+  warning: false
+  message: false
 ---
 
 ```{r}
