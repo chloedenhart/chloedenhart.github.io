@@ -4,7 +4,7 @@
     "href": "drinks.html",
     "title": "All Drinks",
     "section": "",
-    "text": "drinks &lt;- read.csv(\"all_drinks.csv\")\n\n\nlibrary(tidyverse)\nlibrary(ggplot2)\n\nggplot(drinks, aes(x = strCategory)) +\n  geom_bar() +\n  labs(\n    x = \"Drink Category\",\n    y = \"Count\",\n    title = \"Analysis of amount of drinks in each drink category\",\n  ) +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))\n\n\n\n\n\n\n\n\nHere is my data viz for food consumption!"
+    "text": "drinks &lt;- read.csv(\"all_drinks.csv\")\n\n\nlibrary(tidyverse)\nlibrary(ggplot2)\n\nggplot(drinks, aes(x = strCategory)) +\n  geom_bar() +\n  labs(\n    x = \"Drink Category\",\n    y = \"Count\",\n    title = \"Analysis of amount of drinks in each drink category\",\n  ) +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))\n\n\n\n\n\n\n\n\nHere is my data viz for food consumption!\nLink to data set: https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-02-18/food_consumption.csv"
   },
   {
     "objectID": "about.html",
@@ -25,6 +25,6 @@
     "href": "food.html",
     "title": "Food Consumption",
     "section": "",
-    "text": "food &lt;- read.csv(\"food_consumption.csv\")\n\nlibrary(tidyverse)\nlibrary(ggplot2)\n\nggplot(food, aes(x = co2_emmission, y = consumption)) +\n  geom_point() +\n  labs(\n    x = \"CO2 Emissions\",\n    y = \"Consumption\",\n    title = \"Relationship food consumption and CO2 emissions\",\n  )\n\n\n\n\n\n\n\n\nHere is my data viz for food consumption!"
+    "text": "food &lt;- read.csv(\"food_consumption.csv\")\n\nlibrary(tidyverse)\nlibrary(ggplot2)\n\nggplot(food, aes(x = co2_emmission, y = consumption)) +\n  geom_point() +\n  labs(\n    x = \"CO2 Emissions\",\n    y = \"Consumption\",\n    title = \"Relationship food consumption and CO2 emissions\",\n  )\n\n\n\n\n\n\n\n\nHere is my data viz for food consumption! link to data set: https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-05-26/all_drinks.csv"
   }
 ]

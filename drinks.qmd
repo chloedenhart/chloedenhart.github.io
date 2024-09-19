@@ -28,3 +28,5 @@ ggplot(drinks, aes(x = strCategory)) +
 ```
 
 Here is my data viz for food consumption!
+
+Link to data set: <https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-02-18/food_consumption.csv>
