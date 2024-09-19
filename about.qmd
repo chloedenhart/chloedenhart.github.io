@@ -1,6 +1,6 @@
 ---
 title: "Chloe Denhart"
-image: media/spt.JPG
+image: media/spt2.jpeg
 toc: false
 about: 
   template: jolla
