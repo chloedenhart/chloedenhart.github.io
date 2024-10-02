@@ -23,7 +23,7 @@ library(stringr)
 
 ```{r}
 netflix_titles2 <- netflix_titles |>
-  mutate(listed_in = str_to_lower(listed_in))
+  mutate(listed_in = str_replace_all(listed_in, "[A-Z]", tolower))
 ```
 
 ```{r}
@@ -88,6 +88,13 @@ mean_description_length <- description_length |>
 mean_description_length
 ```
 
+```{r}
+rating <- netflix_titles |>
+  filter(str_detect(rating, "^(R|PG-13|PG|G)$")) |>
+  select(title, rating)
+rating
+```
+
 **Analysis on Tables/Plots:**
 
 My first table, I wanted to change the genre descriptions to all lowercase. I did this so that for my next table I could condense all of the genres into six different categories, allowing me to plot a graph showing the amount of movies/television shows in each genre.
@@ -96,7 +103,9 @@ My first graph represents that amount of movies/television shows in each genre. 
 
 From my second graph we can see the relationship between year, and movie/television show release date. We can infer from this graph that that a lot more movies and television shows were put on Netflix after the mid 2000s.
 
-Lastly, I wanted to play around with the str_length function. So I took the length of all of the descriptions of each title. The mean of the description lengths was 143.1004 string characters,
+I wanted to play around with the str_length function. So I took the length of all of the descriptions of each title. The mean of the description lengths was 143.1004 string characters.
+
+Lastly, I created a new data frame that takes the title of the show and detects the R, PG-13, PG and G ratings
 
 **Reference:**
 

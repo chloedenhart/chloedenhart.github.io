@@ -216,7 +216,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>netflix_titles2 <span class="ot">&lt;-</span> netflix_titles <span class="sc">|&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">listed_in =</span> <span class="fu">str_to_lower</span>(listed_in))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">listed_in =</span> <span class="fu">str_replace_all</span>(listed_in, <span class="st">"[A-Z]"</span>, tolower))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>genre_titles <span class="ot">&lt;-</span> netflix_titles2 <span class="sc">|&gt;</span></span>
@@ -290,11 +290,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 1        143.</code></pre>
 </div>
 </div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>rating <span class="ot">&lt;-</span> netflix_titles <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(rating, <span class="st">"^(R|PG-13|PG|G)$"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(title, rating)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>rating</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,337 × 2
+   title       rating
+   &lt;chr&gt;       &lt;chr&gt; 
+ 1 23:59       R     
+ 2 9           PG-13 
+ 3 21          PG-13 
+ 4 187         R     
+ 5 3022        R     
+ 6 22-Jul      R     
+ 7 Æon Flux    PG-13 
+ 8 10,000 B.C. PG-13 
+ 9 13 Sins     R     
+10 14 Blades   R     
+# ℹ 1,327 more rows</code></pre>
+</div>
+</div>
 <p><strong>Analysis on Tables/Plots:</strong></p>
 <p>My first table, I wanted to change the genre descriptions to all lowercase. I did this so that for my next table I could condense all of the genres into six different categories, allowing me to plot a graph showing the amount of movies/television shows in each genre.</p>
 <p>My first graph represents that amount of movies/television shows in each genre. From this graph, we can see the most common genres are comedy and drama. The least common genres are crime and reality.</p>
 <p>From my second graph we can see the relationship between year, and movie/television show release date. We can infer from this graph that that a lot more movies and television shows were put on Netflix after the mid 2000s.</p>
-<p>Lastly, I wanted to play around with the str_length function. So I took the length of all of the descriptions of each title. The mean of the description lengths was 143.1004 string characters,</p>
+<p>I wanted to play around with the str_length function. So I took the length of all of the descriptions of each title. The mean of the description lengths was 143.1004 string characters.</p>
+<p>Lastly, I created a new data frame that takes the title of the show and detects the R, PG-13, PG and G ratings</p>
 <p><strong>Reference:</strong></p>
 <p><a href="https://www.kaggle.com/datasets/shivamb/netflix-shows" class="uri">https://www.kaggle.com/datasets/shivamb/netflix-shows</a></p>
 <p>Credits to Shivam Bansal for this Dataset.</p>
