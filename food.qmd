@@ -2,7 +2,7 @@
 title: "Food Consumption"
 description: |
   Analysis of food consumption data from TidyTuesday
-author: Jo Hardin
+author: Chloe Denhart
 date: September 18, 2024
 format: html
 execute: 

@@ -2,7 +2,7 @@
 title: "All Drinks"
 description: |
   Analysis of all drinks data from TidyTuesday
-author: Jo Hardin
+author: Chloe Denhart
 date: September 18, 2024
 format: html
 execute: 
