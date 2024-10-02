@@ -1,17 +1,17 @@
 [
   {
-    "objectID": "drinks.html",
-    "href": "drinks.html",
-    "title": "All Drinks",
+    "objectID": "miniproject2.html",
+    "href": "miniproject2.html",
+    "title": "Mini-Project 2",
     "section": "",
-    "text": "drinks &lt;- read.csv(\"all_drinks.csv\")\n\n\nlibrary(tidyverse)\nlibrary(ggplot2)\n\nggplot(drinks, aes(x = strCategory)) +\n  geom_bar() +\n  labs(\n    x = \"Drink Category\",\n    y = \"Count\",\n    title = \"Analysis of amount of drinks in each drink category\",\n  ) +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))\n\n\n\n\n\n\n\n\nHere is my data viz for food consumption!\nLink to data set: https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-02-18/food_consumption.csv"
+    "text": "netflix_titles &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-04-20/netflix_titles.csv')\n\n\nlibrary(tidyverse)\nlibrary(ggplot2)\nlibrary(tidytuesdayR)\nlibrary(stringr)\n\n\nnetflix_titles2 &lt;- netflix_titles |&gt;\n  mutate(listed_in = str_to_lower(listed_in))\n\n\ngenre_titles &lt;- netflix_titles2 |&gt;\n  filter(str_detect(listed_in, \"comedy|comedies|drama|horror|documentary|action|crime|reality\")) |&gt;\n  mutate(genre = case_when(\n    str_detect(listed_in, \"comedy|comedies\") ~ \"Comedy\",\n    str_detect(listed_in, \"drama\") ~ \"Drama\",\n    str_detect(listed_in, \"horror\") ~ \"Horror\",\n    str_detect(listed_in, \"documentary\") ~ \"Documentary\",\n    str_detect(listed_in, \"action\") ~ \"Action\",\n    str_detect(listed_in, \"crime\") ~ \"Crime\",\n    str_detect(listed_in, \"reality\") ~ \"Reality\"\n  )) |&gt;\n  select(genre, type)\n\n\ngenre_plot &lt;-ggplot(genre_titles, aes(x = genre)) +\n    geom_bar() +\n    labs(\n      x = \"Genre\",\n      y = \"Count\",\n      title = \"# of Movies per Genre\"\n    )\nprint(genre_plot)\n\n\n\n\n\n\n\n\n\nyear_counts &lt;- netflix_titles |&gt;\n  group_by(release_year, type) |&gt;\n  summarise(count = n()) |&gt;\n  arrange(desc(count))\n\n\nyear_plot &lt;- \n  ggplot(year_counts, aes(x = release_year , y = count, color = type)) +\n  geom_point() +\n  labs(title = \"Number of Titles by Genre\", \n       x = \"Genre\", \n       y = \"Count\"\n       )\nprint(year_plot)\n\n\n\n\n\n\n\n\n\ndescription_length &lt;- netflix_titles |&gt;\n  mutate(description_length = str_length(description)) |&gt;\n  select(title, description, description_length) |&gt;\n  arrange(desc(description_length))\n\n\nmean_description_length &lt;- description_length |&gt;\n  summarize(mean_length = mean(description_length, na.rm = TRUE))\n\nmean_description_length\n\n# A tibble: 1 × 1\n  mean_length\n        &lt;dbl&gt;\n1        143.\n\n\nAnalysis on Tables/Plots:\nMy first table, I wanted to change the genre descriptions to all lowercase. I did this so that for my next table I could condense all of the genres into six different categories, allowing me to plot a graph showing the amount of movies/television shows in each genre.\nMy first graph represents that amount of movies/television shows in each genre. From this graph, we can see the most common genres are comedy and drama. The least common genres are crime and reality.\nFrom my second graph we can see the relationship between year, and movie/television show release date. We can infer from this graph that that a lot more movies and television shows were put on Netflix after the mid 2000s.\nLastly, I wanted to play around with the str_length function. So I took the length of all of the descriptions of each title. The mean of the description lengths was 143.1004 string characters,\nReference:\nhttps://www.kaggle.com/datasets/shivamb/netflix-shows\nCredits to Shivam Bansal for this Dataset."
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "Chloe Denhart",
+    "objectID": "food.html",
+    "href": "food.html",
+    "title": "Food Consumption",
     "section": "",
-    "text": "About this site:\nWelcome to my website! I am a student at Pomona College majoring in Economics and minoring in Data Science. I am a member of the Pomona Woman’s Lacrosse team. Outside of Pomona, I am an avid camper and hiker!"
+    "text": "food &lt;- read.csv(\"food_consumption.csv\")\n\nlibrary(tidyverse)\nlibrary(ggplot2)\n\nggplot(food, aes(x = co2_emmission, y = consumption)) +\n  geom_point() +\n  labs(\n    x = \"CO2 Emissions\",\n    y = \"Consumption\",\n    title = \"Relationship food consumption and CO2 emissions\",\n  )\n\n\n\n\n\n\n\n\nHere is my data viz for food consumption! link to data set: https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-05-26/all_drinks.csv"
   },
   {
     "objectID": "index.html",
@@ -21,10 +21,17 @@
     "text": "Welcome to my page!"
   },
   {
-    "objectID": "food.html",
-    "href": "food.html",
-    "title": "Food Consumption",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Chloe Denhart",
     "section": "",
-    "text": "food &lt;- read.csv(\"food_consumption.csv\")\n\nlibrary(tidyverse)\nlibrary(ggplot2)\n\nggplot(food, aes(x = co2_emmission, y = consumption)) +\n  geom_point() +\n  labs(\n    x = \"CO2 Emissions\",\n    y = \"Consumption\",\n    title = \"Relationship food consumption and CO2 emissions\",\n  )\n\n\n\n\n\n\n\n\nHere is my data viz for food consumption! link to data set: https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-05-26/all_drinks.csv"
+    "text": "About this site:\nWelcome to my website! I am a student at Pomona College majoring in Economics and minoring in Data Science. I am a member of the Pomona Woman’s Lacrosse team. Outside of Pomona, I am an avid camper and hiker!"
+  },
+  {
+    "objectID": "drinks.html",
+    "href": "drinks.html",
+    "title": "All Drinks",
+    "section": "",
+    "text": "drinks &lt;- read.csv(\"all_drinks.csv\")\n\n\nlibrary(tidyverse)\nlibrary(ggplot2)\n\nggplot(drinks, aes(x = strCategory)) +\n  geom_bar() +\n  labs(\n    x = \"Drink Category\",\n    y = \"Count\",\n    title = \"Analysis of amount of drinks in each drink category\",\n  ) +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))\n\n\n\n\n\n\n\n\nHere is my data viz for food consumption!\nLink to data set: https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-02-18/food_consumption.csv"
   }
 ]

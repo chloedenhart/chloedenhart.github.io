@@ -16,6 +16,9 @@ website:
             text: "Food Consumption"
           - href: drinks.html
             text: "All Drinks"
+          - href: miniproject2.html
+            text: "Mini-Project 2"
+            
 
 format:
   html:

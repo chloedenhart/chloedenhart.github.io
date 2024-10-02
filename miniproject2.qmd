@@ -1,0 +1,105 @@
+---
+title: "Mini-Project 2"
+description: |
+  Analysis of Netflix Movies and TV Shows
+author: Chloe Denhart
+date: September 18, 2024
+format: html
+execute: 
+  warning: false
+  message: false
+---
+
+```{r}
+netflix_titles <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-04-20/netflix_titles.csv')
+```
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(tidytuesdayR)
+library(stringr)
+```
+
+```{r}
+netflix_titles2 <- netflix_titles |>
+  mutate(listed_in = str_to_lower(listed_in))
+```
+
+```{r}
+
+genre_titles <- netflix_titles2 |>
+  filter(str_detect(listed_in, "comedy|comedies|drama|horror|documentary|action|crime|reality")) |>
+  mutate(genre = case_when(
+    str_detect(listed_in, "comedy|comedies") ~ "Comedy",
+    str_detect(listed_in, "drama") ~ "Drama",
+    str_detect(listed_in, "horror") ~ "Horror",
+    str_detect(listed_in, "documentary") ~ "Documentary",
+    str_detect(listed_in, "action") ~ "Action",
+    str_detect(listed_in, "crime") ~ "Crime",
+    str_detect(listed_in, "reality") ~ "Reality"
+  )) |>
+  select(genre, type)
+
+```
+
+```{r}
+genre_plot <-ggplot(genre_titles, aes(x = genre)) +
+    geom_bar() +
+    labs(
+      x = "Genre",
+      y = "Count",
+      title = "# of Movies per Genre"
+    )
+print(genre_plot)
+```
+
+```{r}
+year_counts <- netflix_titles |>
+  group_by(release_year, type) |>
+  summarise(count = n()) |>
+  arrange(desc(count))
+
+```
+
+```{r}
+year_plot <- 
+  ggplot(year_counts, aes(x = release_year , y = count, color = type)) +
+  geom_point() +
+  labs(title = "Number of Titles by Genre", 
+       x = "Genre", 
+       y = "Count"
+       )
+print(year_plot)
+```
+
+```{r}
+description_length <- netflix_titles |>
+  mutate(description_length = str_length(description)) |>
+  select(title, description, description_length) |>
+  arrange(desc(description_length))
+  
+```
+
+```{r}
+mean_description_length <- description_length |>
+  summarize(mean_length = mean(description_length, na.rm = TRUE))
+
+mean_description_length
+```
+
+**Analysis on Tables/Plots:**
+
+My first table, I wanted to change the genre descriptions to all lowercase. I did this so that for my next table I could condense all of the genres into six different categories, allowing me to plot a graph showing the amount of movies/television shows in each genre.
+
+My first graph represents that amount of movies/television shows in each genre. From this graph, we can see the most common genres are comedy and drama. The least common genres are crime and reality.
+
+From my second graph we can see the relationship between year, and movie/television show release date. We can infer from this graph that that a lot more movies and television shows were put on Netflix after the mid 2000s.
+
+Lastly, I wanted to play around with the str_length function. So I took the length of all of the descriptions of each title. The mean of the description lengths was 143.1004 string characters,
+
+**Reference:**
+
+<https://www.kaggle.com/datasets/shivamb/netflix-shows>
+
+Credits to Shivam Bansal for this Dataset.
