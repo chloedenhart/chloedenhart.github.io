@@ -78,16 +78,6 @@ null_distribution <- map_dbl(1:num_exper, ~ random_choice(total_games))
 ```
 
 ```{r}
-ggplot(data.frame(null_distribution), aes(x = null_distribution)) + 
-  geom_histogram(bins = 30, color = "black", fill = "skyblue") +
-  labs(x = "Proportion of teams that upset a higher seed", 
-       y = "Count",
-       title = "Sampling distribution under the null hypothesis")
-
-```
-
-```{r}
-# p_value
 p_value <- sum(null_distribution >= upset_rate) / num_exper
 ```
 
