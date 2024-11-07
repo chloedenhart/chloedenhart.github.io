@@ -1,0 +1,132 @@
+---
+title: "Mini-Project 3"
+description: |
+  Permentation Test Across March Madness Dataset
+author: Chloe Denhart
+date: November 7, 2024
+format: html
+execute: 
+  warning: false
+  message: false
+---
+
+![]()
+
+The code here will provide an analysis on March Madness data. March madness is one of the most unpredictable tournaments in sports, as lower seeded teams are constantly "upsetting" higher seeded teams. The analysis done here will tackle the actual probability of lower seeded teams beating higher seeded teams. Our research question is: What is the probability of a lower-seeded team winning against a higher-seeded team in the first round of the 2023 NCAA March Madness tournament, and does this probability exceed 90%? To determine this I will conduct a permutation test with the hypothesis:
+
+-   Null hypothesis (H0) : the probability that a lower seeded team wins being less than or equal to 90% (Upset win rate ≤ 90%).
+
+-   Alternative hypothesis (Ha): the probability that a lower seeded team wins being greater than 90% (Upset win rate \> 90%)
+
+    In this case, we will be using a right tailed test permutation test. If the p-value is below the significance level (0.05), we will reject the null hypothesis, if it is not, we will fail to reject the null hypothesis.
+
+In this case, we will be using a right tailed permutation test. If the p-value is below the significance level (0.05), we reject the null hypothesis, if it is not, we will fail to reject the null hypothesis.
+
+```{r}
+march_madness <- read.csv("538 Ratings.csv")
+
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(tidyverse)
+library(purrr)
+```
+
+```{r}
+march_madness_2023 <- march_madness |>
+  filter(YEAR == 2023)
+```
+
+```{r}
+march_madness_2023 <- march_madness_2023 |>
+  mutate(RESULT = ifelse(ROUND < 64, "win", "loss"))
+```
+
+```{r}
+team_round <- march_madness_2023 |>
+  filter(SEED >= 8) |>
+  summarise(total_games = n())
+```
+
+```{r}
+total_games <- team_round |> 
+  pull(total_games)
+```
+
+```{r}
+upset_rate <- march_madness_2023 |>
+  filter(SEED >= 8 & RESULT == "win") |>
+  summarise(upset_wins = n()) |>
+  mutate(upset_rate = upset_wins / nrow(march_madness_2023)) |>
+  pull(upset_rate)
+```
+
+```{r}
+random_choice <- function(num_teams) {
+  shuffled_seed <- sample(c("lower", "higher"), num_teams, replace = TRUE, prob = c(0.1, 0.9))
+  upset_ratio <- mean(shuffled_seed == "lower")
+  return(upset_ratio)
+}
+```
+
+```{r}
+set.seed(47)
+num_exper <- 5000
+null_distribution <- map_dbl(1:num_exper, ~ random_choice(total_games))
+```
+
+```{r}
+ggplot(data.frame(null_distribution), aes(x = null_distribution)) + 
+  geom_histogram(bins = 30, color = "black", fill = "skyblue") +
+  labs(x = "Proportion of teams that upset a higher seed", 
+       y = "Count",
+       title = "Sampling distribution under the null hypothesis")
+
+```
+
+```{r}
+# p_value
+p_value = sum(null_distribution >= upset_rate) / num_exper
+print(p_value)
+```
+
+```{r}
+ggplot(data.frame(null_distribution), aes(x = null_distribution)) + 
+  geom_histogram(bins = 30, color = "black", fill = "skyblue") +
+  geom_vline(xintercept = p_value, color = "red") + 
+  labs(x = "Proportion of teams that upset a higher seed", 
+       y = "Count",
+       title = "Sampling distribution under the null hypothesis")
+```
+
+This plot helps us visualize the null distribution of the data. The red line indicates the p_value is 0.217, and we know that our level of significance is 0.05. The p-value line does not line with the level of significance value in the right tail.
+
+The p_value is 0.217, which means we reject the null hypothesis. Our p_value is greater than our level of significance, 0.05. This means that we fail to reject the null hypothesis. The analysis suggests that while lower-seeded teams do have upsets, the proportion of upsets is not as high as 90%. The probability of a lower-seeded team winning is likely not as extraordinary as 90%, according to your results.
+
+Data Source:
+
+<https://www.kaggle.com/datasets/nishaanamin/march-madness-data/data>
+
+Author: NISHAAN AMIN
+
+This data was sourced from data during the March Madness tournament. Specifically...
+
+The data is pulled from:
+
+-   <https://kenpom.com/>
+
+-   <https://www.barttorvik.com/#>
+
+-   <https://heatcheckcbb.com/>
+
+-   <https://abcnews.go.com/538>
+
+-   <https://www.espn.com/>
+
+-   <https://www.collegepollarchive.com/>
+
+-   <https://sports.yahoo.com/>
+
+It was updated about 8 months ago. The data is from 2008 - 2024 for the men's teams. The year 2020 is not included because the tournament was canceled due to Covid. The first column of almost every dataset displays the year the data is from.
