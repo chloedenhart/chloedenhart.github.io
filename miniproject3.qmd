@@ -88,8 +88,7 @@ ggplot(data.frame(null_distribution), aes(x = null_distribution)) +
 
 ```{r}
 # p_value
-p_value = sum(null_distribution >= upset_rate) / num_exper
-print(p_value)
+p_value <- sum(null_distribution >= upset_rate) / num_exper
 ```
 
 ```{r}
