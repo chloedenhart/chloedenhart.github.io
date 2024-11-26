@@ -3,7 +3,7 @@ title: "Mini-Project 4"
 description: |
   Analysis of Ear Frequencies and Mean Absorbancy
 author: Chloe Denhart
-date: November 21, 2024
+date: November 26, 2024
 format: html
 execute: 
   warning: false
@@ -35,10 +35,6 @@ Subjects <- tbl(con_wai, "Subjects")
 # collect(Measurements)
 
 ```
-
-![]()
-
-![]()
 
 ```{sql}
 #| connection: con_wai
@@ -156,3 +152,11 @@ sex_analysis |>
 ```
 
 This graphs analyzes just the *Aithal (2013)* study from the WAI database. Each line represents data from a specific sex group. There seems to be some mistake in the data where "Female" was spelled "Femake". The x-axis shows frequency in Hertz (Hz), ranging from 200 Hz to 8000 Hz, while the y-axis displays mean absorption values ranging from 0 to 1. This plot highlights that there are not distince variations in mean absorption and frequency across different sex's, demonstrating that sex does not influence auditory outcomes.
+
+**Data Source:**
+
+The data used in this analysis comes from the *Wideband Acoustic Immittance (WAI) Database*, hosted by Smith College. The WAI Database contains a collection of auditory measurements provide measurements across multiple studies and demographic groups. The database includes data from various peer-reviewed studies, including those focusing on different age, sex, and ethnicity groups.
+
+Link:
+
+<https://www.science.smith.edu/wai-database/>
