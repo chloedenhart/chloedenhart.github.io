@@ -1,0 +1,158 @@
+---
+title: "Mini-Project 4"
+description: |
+  Analysis of Ear Frequencies and Mean Absorbancy
+author: Chloe Denhart
+date: November 21, 2024
+format: html
+execute: 
+  warning: false
+  message: false
+---
+
+In this project, I will reproduce the graph created in Figure 1 of the *Voss (2020)* study using data from the Wideband Acoustic Immittance (WAI) Database. The graph will plot frequency against mean absorption for the 12 studies referenced in Figure 1, showing the differences across studies. I will also explore a second study, *Aithal (2013)*, focusing on differences in mean absorption by sex. Both analyses will involve querying the WAI Database with SQL to extract the necessary data and using R to create plots.
+
+```{r}
+library(RMariaDB)
+library(tidyverse)
+library(ggplot2)
+```
+
+```{r}
+library(RMariaDB)
+library(tidyverse)
+
+library(RMariaDB)
+con_wai <- dbConnect(
+  MariaDB(), host = "scidb.smith.edu",
+  user = "waiuser", password = "smith_waiDB", 
+  dbname = "wai"
+)
+Measurements <- tbl(con_wai, "Measurements")
+PI_Info <- tbl(con_wai, "PI_Info")
+Subjects <- tbl(con_wai, "Subjects")
+
+# collect(Measurements)
+
+```
+
+![]()
+
+![]()
+
+```{sql}
+#| connection: con_wai
+
+SHOW TABLES;
+
+```
+
+```{sql}
+#| connection: con_wai
+
+DESCRIBE Measurements;
+
+```
+
+```{sql}
+#| connection: con_wai
+
+SELECT *
+FROM Measurements
+LIMIT 0, 5;
+
+```
+
+```{sql}
+#| connection: con_wai
+
+SELECT DISTINCT Identifier
+FROM Measurements;
+
+```
+
+```{sql}
+#| connection: con_wai
+#| output.var: ears
+SELECT 
+  m.Identifier,
+  CONCAT(pi.AuthorsShortList,pi.Year,m.Instrument, m.Frequency) AS Label,
+  m.Frequency,
+  AVG(m.Absorbance) AS Mean_Absorbance,
+  COUNT(DISTINCT m.SubjectNumber, m.Ear) AS Unique_Ears
+FROM Measurements AS m
+JOIN PI_Info AS pi
+  ON m.Identifier = pi.Identifier
+WHERE m.Identifier IN ('Abur_2014', 'Werner_2010', 'Voss_2020', 'Feeny_2017', 'Groon_2015', 'Lewis_2015', 'Liu_2008', 'Rosowski_2012', 'Shahnaz_2006', 'Shaver_2013', 'Sun_2016', 'Voss_1994', 'Voss_2010')
+GROUP BY m.Identifier, m.Frequency, pi.AuthorsShortList, pi.Year, m.Instrument
+ORDER BY pi.Year, m.Frequency;
+
+
+```
+
+```{r}
+ears |> 
+  ggplot(aes(x = Frequency, y = Mean_Absorbance, color = Identifier)) +
+  geom_line() +
+  labs(
+    title = "Mean Absorbance From Each Publication in WAI Database",
+    x = "Frequency (Hz)",
+    y = "Mean Absorbance",
+    color = "Study"
+  ) +
+  scale_x_continuous(limits = c(200, 8000)) +
+  scale_y_continuous(limits = c(0, 1)) +
+  theme_minimal()
+
+
+```
+
+This graphs analyzes 12 different studies from the WAI database. Each line represents data from a specific study, identified by the author, year, instrument, and the number of unique ears measured. The x-axis shows frequency in Hertz (Hz), ranging from 200 Hz to 8000 Hz, while the y-axis displays mean absorption values ranging from 0 to 1. This plot highlights variations in mean absorption across different studies and instruments, demonstrating how measurement techniques and populations may influence auditory outcomes. Each study has differing ranges in mean absorbency and frequency.
+
+Now we will reproduce a similar graph, finding a study in the same database where subjects of different sex. In doing this I will be using the *Aithal (2013)* study.
+
+```{sql}
+#| connection: con_wai
+#| output.var: sex_analysis
+SELECT 
+  m.Identifier,
+  m.Frequency,
+  s.Sex,
+  AVG(m.Absorbance) AS Mean_Absorbance,
+  COUNT(DISTINCT m.SubjectNumber, m.Ear) AS Unique_Ears
+FROM Measurements AS m
+JOIN Subjects AS s
+  ON m.SubjectNumber = s.SubjectNumber
+WHERE m.Identifier = 'Aithal_2013'
+GROUP BY m.Frequency, s.Sex
+ORDER BY m.Frequency, s.Sex;
+
+```
+
+```{sql}
+#| connection: con_wai
+#| output.var: sex
+
+SELECT Sex, Identifier
+FROM Subjects
+```
+
+```{r}
+sex_analysis |>
+  ggplot(aes(x = Frequency, y = Mean_Absorbance, color = Sex)) +
+  geom_line() +
+  labs(
+    title = "Frequency vs. Mean Absorbance by Sex for Aithal_2013",
+    x = "Frequency (Hz)",
+    y = "Mean Absorbance",
+    color = "Sex"
+  ) +
+  theme_minimal() +
+  scale_x_continuous(limits = c(200, 8000)) +
+  scale_y_continuous(limits = c(0, 1)) +
+  theme_minimal()
+
+
+```
+
+This graphs analyzes just the *Aithal (2013)* study from the WAI database. Each line represents data from a specific sex group. There seems to be some mistake in the data where "Female" was spelled "Femake". The x-axis shows frequency in Hertz (Hz), ranging from 200 Hz to 8000 Hz, while the y-axis displays mean absorption values ranging from 0 to 1. This plot highlights that there are not distince variations in mean absorption and frequency across different sex's, demonstrating that sex does not influence auditory outcomes.

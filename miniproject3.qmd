@@ -18,8 +18,6 @@ The code here will provide an analysis on March Madness data. March madness is o
 
 -   Alternative hypothesis (Ha): the probability that a lower seeded team wins being greater than 90% (Upset win rate \> 90%)
 
-    In this case, we will be using a right tailed test permutation test. If the p-value is below the significance level (0.05), we will reject the null hypothesis, if it is not, we will fail to reject the null hypothesis.
-
 In this case, we will be using a right tailed permutation test. If the p-value is below the significance level (0.05), we reject the null hypothesis, if it is not, we will fail to reject the null hypothesis.
 
 ```{r}
