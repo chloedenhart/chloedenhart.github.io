@@ -1,0 +1,323 @@
+---
+title: "Final Project"
+description: |
+  Permentation Test Across March Madness Dataset
+author: "Chloe Denhart"
+date: December 9, 2024
+format: 
+  revealjs:
+    fontSize: 15px 
+execute: 
+  warning: false
+  message: false
+---
+
+
+## Overview
+1. Project 1: Netflix Analysis
+2. Project 2: March Madness Permutation Test
+3. Project 3: WAI Database
+
+## Netflix Analysis
+
+- Categorized Netflix titles by genre.
+- Explored relationships between genres, release years, and description lengths.
+
+
+## Figure 1 - Movies per Genre
+
+```{r}
+#| echo: false
+netflix_titles <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-04-20/netflix_titles.csv')
+```
+
+```{r}
+#| echo: false
+library(tidyverse)
+library(ggplot2)
+library(tidytuesdayR)
+library(stringr)
+```
+
+```{r}
+#| echo: false
+netflix_titles2 <- netflix_titles |>
+  mutate(listed_in = str_replace_all(listed_in, "[A-Z]", tolower))
+```
+
+```{r}
+#| echo: false
+genre_titles <- netflix_titles2 |>
+  filter(str_detect(listed_in, "comedy|comedies|drama|horror|documentary|action|crime|reality")) |>
+  mutate(genre = case_when(
+    str_detect(listed_in, "comedy|comedies") ~ "Comedy",
+    str_detect(listed_in, "drama") ~ "Drama",
+    str_detect(listed_in, "horror") ~ "Horror",
+    str_detect(listed_in, "documentary") ~ "Documentary",
+    str_detect(listed_in, "action") ~ "Action",
+    str_detect(listed_in, "crime") ~ "Crime",
+    str_detect(listed_in, "reality") ~ "Reality"
+  )) |>
+  select(genre, type)
+```
+
+```{r}
+#| echo: false
+year_counts <- netflix_titles |>
+  group_by(release_year, type) |>
+  summarise(count = n()) |>
+  arrange(desc(count))
+```
+
+```{r}
+#| echo: false
+
+genre_plot <- ggplot(genre_titles, aes(x = genre)) +
+    geom_bar() +
+    labs(
+      x = "Genre",
+      y = "Count",
+      title = "# of Movies per Genre"
+    )
+print(genre_plot)
+
+```
+
+## Figure 2 - Number of Titles for TV Shows and Movies
+
+```{r}
+#| echo: false
+year_plot <- 
+  ggplot(year_counts, aes(x = release_year , y = count, color = type)) +
+  geom_point() +
+  labs(title = "Number of Titles", 
+       x = "Year", 
+       y = "Count"
+       )
+print(year_plot)
+```
+
+
+
+
+## March Madness
+- Conducted a permutation test to analyze upset probabilities in 2023.
+- Explored the upset rate for lower-seeded teams in the round of 64.
+- Null hypothesis (H0) : the probability that a lower seeded team wins being less than or equal to 90% (Upset win rate ≤ 90%).
+- Alternative hypothesis (Ha): the probability that a lower seeded team wins being greater than 90% (Upset win rate > 90%)
+
+## Outcome of Upsets
+- This tibble shows how many upsets occurred throughout the round of 64
+
+```{r}
+#| echo: false
+march_madness <- read.csv("538 Ratings.csv")
+
+```
+
+
+```{r}
+#| echo: false
+library(dplyr)
+library(ggplot2)
+library(tidyverse)
+library(purrr)
+```
+
+```{r}
+#| echo: false
+total_games <- march_madness |>
+  filter(YEAR == 2023, ROUND == 64) |>
+  nrow()
+```
+
+```{r}
+#| echo: false
+upsets <- march_madness |>
+  filter(YEAR == 2023, ROUND < 64, SEED > 8) |>
+  nrow()
+```
+
+
+```{r}
+#| echo: false
+march_madness |>
+  filter(YEAR == 2023) |>
+  filter(ROUND <= 64) |>
+  mutate(RESULT = ifelse(ROUND < 64, "win", "loss")) |>
+  mutate(seed_group = ifelse(SEED <=8, "top", "bottom")) |>
+  group_by(seed_group, RESULT) |>
+  summarize(n())
+# upset rate = 0.21875, which is 7/32
+```
+
+Upset rate (7/32):
+```{r}
+#| echo: false
+# upset rate drawn from the total number of games in round of 64, and the amount of games won by a team when their seed >= 8. See table above.
+upset_rate <- upsets/total_games
+upset_rate
+  
+```
+
+```{r}
+#| echo: false
+random_choice <- function(num_teams) {
+  shuffled_seed <- sample(c("lower", "higher"), num_teams, replace = TRUE, prob = c(0.9, 0.1))
+  upset_ratio <- mean(shuffled_seed == "higher")
+  return(upset_ratio)
+}
+```
+
+```{r mapping function}
+#| echo: false
+set.seed(47)
+num_exper <- 5000
+null_distribution <- map_dbl(1:num_exper, ~ random_choice(total_games))
+# issue with rendering is that total games is not defined
+```
+
+P-Value:
+```{r}
+#| echo: false
+p_value <- sum(null_distribution >= upset_rate) / num_exper
+p_value
+```
+
+## Null Distribution
+- Histogram of null distribution with upset rate highlighted.
+
+```{r}
+#| echo: false
+ggplot(data.frame(null_distribution), aes(x = null_distribution)) + 
+  geom_histogram(bins = 30, color = "black", fill = "skyblue") +
+  geom_vline(xintercept = upset_rate, color = "red") + # red line should be at upset rate not p-value
+  labs(x = "Proportion of teams that upset a higher seed", 
+       y = "Count",
+       title = "Sampling distribution under the null hypothesis")
+```
+
+
+## Key Insights
+- Upset rate: 21.9%.
+- P-value: 0.035 — rejected null hypothesis. Lower-seeded teams can achieve significant upsets.
+
+
+## WAI Database Analysis
+- Analyzed ear frequency and mean absorbency data from 12 studies.
+- Compared sex-based differences in absorbency for Aithal (2013).
+
+
+## Figure 1 - Mean Absorbtion From 12 Studies
+```{r}
+#| echo: false
+library(RMariaDB)
+library(tidyverse)
+library(ggplot2)
+```
+
+```{r}
+#| echo: false
+library(RMariaDB)
+library(tidyverse)
+
+library(RMariaDB)
+con_wai <- dbConnect(
+  MariaDB(), host = "scidb.smith.edu",
+  user = "waiuser", password = "smith_waiDB", 
+  dbname = "wai"
+)
+Measurements <- tbl(con_wai, "Measurements")
+PI_Info <- tbl(con_wai, "PI_Info")
+Subjects <- tbl(con_wai, "Subjects")
+
+# collect(Measurements)
+
+```
+
+```{sql}
+#| connection: con_wai
+#| output.var: ears
+
+#| echo: false
+SELECT 
+  m.Identifier,
+  CONCAT(pi.AuthorsShortList,pi.Year,m.Instrument, m.Frequency) AS Label,
+  m.Frequency,
+  AVG(m.Absorbance) AS Mean_Absorbance,
+  COUNT(DISTINCT m.SubjectNumber, m.Ear) AS Unique_Ears
+FROM Measurements AS m
+JOIN PI_Info AS pi
+  ON m.Identifier = pi.Identifier
+WHERE m.Identifier IN ('Abur_2014', 'Werner_2010', 'Voss_2020', 'Feeny_2017', 'Groon_2015', 'Lewis_2015', 'Liu_2008', 'Rosowski_2012', 'Shahnaz_2006', 'Shaver_2013', 'Sun_2016', 'Voss_1994', 'Voss_2010')
+GROUP BY m.Identifier, m.Frequency, pi.AuthorsShortList, pi.Year, m.Instrument
+ORDER BY pi.Year, m.Frequency;
+
+
+```
+
+```{r}
+#| echo: false
+ears |> 
+  ggplot(aes(x = Frequency, y = Mean_Absorbance, color = Identifier)) +
+  geom_line() +
+  labs(
+    title = "Mean Absorbance From Each Publication in WAI Database",
+    x = "Frequency (Hz)",
+    y = "Mean Absorbance",
+    color = "Study"
+  ) +
+  scale_x_continuous(limits = c(200, 8000)) +
+  scale_y_continuous(limits = c(0, 1)) +
+  theme_minimal()
+
+
+```
+
+## Figure 2 - Analysis by Sex (using the *Aithal (2013)* study)
+
+```{sql}
+#| connection: con_wai
+#| output.var: sex_analysis
+#| echo: false
+SELECT 
+  m.Identifier,
+  m.Frequency,
+  s.Sex,
+  AVG(m.Absorbance) AS Mean_Absorbance,
+  COUNT(DISTINCT m.SubjectNumber, m.Ear) AS Unique_Ears
+FROM Measurements AS m
+JOIN Subjects AS s
+  ON m.SubjectNumber = s.SubjectNumber
+WHERE m.Identifier = 'Aithal_2013'
+GROUP BY m.Frequency, s.Sex
+ORDER BY m.Frequency, s.Sex;
+
+```
+
+
+```{r}
+#| echo: false
+sex_analysis |>
+  ggplot(aes(x = Frequency, y = Mean_Absorbance, color = Sex)) +
+  geom_line() +
+  labs(
+    title = "Frequency vs. Mean Absorbance by Sex for Aithal_2013",
+    x = "Frequency (Hz)",
+    y = "Mean Absorbance",
+    color = "Sex"
+  ) +
+  theme_minimal() +
+  scale_x_continuous(limits = c(200, 8000)) +
+  scale_y_continuous(limits = c(0, 1)) +
+  theme_minimal()
+
+
+```
+
+
+## Questions?
+
+
+
+

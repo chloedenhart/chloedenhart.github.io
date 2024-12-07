@@ -27,7 +27,6 @@ netflix_titles2 <- netflix_titles |>
 ```
 
 ```{r}
-
 genre_titles <- netflix_titles2 |>
   filter(str_detect(listed_in, "comedy|comedies|drama|horror|documentary|action|crime|reality")) |>
   mutate(genre = case_when(

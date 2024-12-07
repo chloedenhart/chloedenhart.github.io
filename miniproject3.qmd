@@ -10,13 +10,12 @@ execute:
   message: false
 ---
 
-![]()
 
 The code here will provide an analysis on March Madness data. March madness is one of the most unpredictable tournaments in sports, as lower seeded teams are constantly "upsetting" higher seeded teams. The analysis done here will tackle the actual probability of lower seeded teams beating higher seeded teams. Our research question is: What is the probability of a lower-seeded team winning against a higher-seeded team in the first round of the 2023 NCAA March Madness tournament, and does this probability exceed 90%? To determine this I will conduct a permutation test with the hypothesis:
 
 -   Null hypothesis (H0) : the probability that a lower seeded team wins being less than or equal to 90% (Upset win rate ≤ 90%).
 
--   Alternative hypothesis (Ha): the probability that a lower seeded team wins being greater than 90% (Upset win rate \> 90%)
+-   Alternative hypothesis (Ha): the probability that a lower seeded team wins being greater than 90% (Upset win rate > 90%)
 
 In this case, we will be using a right tailed permutation test. If the p-value is below the significance level (0.05), we reject the null hypothesis, if it is not, we will fail to reject the null hypothesis.
 
@@ -24,6 +23,8 @@ In this case, we will be using a right tailed permutation test. If the p-value i
 march_madness <- read.csv("538 Ratings.csv")
 
 ```
+
+walk through these lines of code
 
 ```{r}
 library(dplyr)
@@ -33,64 +34,70 @@ library(purrr)
 ```
 
 ```{r}
-march_madness_2023 <- march_madness |>
-  filter(YEAR == 2023)
+total_games <- march_madness |>
+  filter(YEAR == 2023, ROUND == 64) |>
+  nrow()
+total_games
 ```
 
 ```{r}
-march_madness_2023 <- march_madness_2023 |>
-  mutate(RESULT = ifelse(ROUND < 64, "win", "loss"))
+upsets <- march_madness |>
+  filter(YEAR == 2023, ROUND < 64, SEED > 8) |>
+  nrow()
+upsets
+```
+
+
+```{r}
+march_madness |>
+  filter(YEAR == 2023) |>
+  filter(ROUND <= 64) |>
+  mutate(RESULT = ifelse(ROUND < 64, "win", "loss")) |>
+  mutate(seed_group = ifelse(SEED <=8, "top", "bottom")) |>
+  group_by(seed_group, RESULT) |>
+  summarize(n())
+# upset rate = 0.21875, which is 7/32
 ```
 
 ```{r}
-team_round <- march_madness_2023 |>
-  filter(SEED >= 8) |>
-  summarise(total_games = n())
-```
-
-```{r}
-total_games <- team_round |> 
-  pull(total_games)
-```
-
-```{r}
-upset_rate <- march_madness_2023 |>
-  filter(SEED >= 8 & RESULT == "win") |>
-  summarise(upset_wins = n()) |>
-  mutate(upset_rate = upset_wins / nrow(march_madness_2023)) |>
-  pull(upset_rate)
+# upset rate drawn from the total number of games in round of 64, and the amount of games won by a team when their seed >= 8. See table above.
+upset_rate <- upsets/total_games
+upset_rate
+  
 ```
 
 ```{r}
 random_choice <- function(num_teams) {
-  shuffled_seed <- sample(c("lower", "higher"), num_teams, replace = TRUE, prob = c(0.1, 0.9))
-  upset_ratio <- mean(shuffled_seed == "lower")
+  shuffled_seed <- sample(c("lower", "higher"), num_teams, replace = TRUE, prob = c(0.9, 0.1))
+  upset_ratio <- mean(shuffled_seed == "higher")
   return(upset_ratio)
 }
 ```
 
-```{r}
+```{r mapping function}
 set.seed(47)
 num_exper <- 5000
 null_distribution <- map_dbl(1:num_exper, ~ random_choice(total_games))
+# issue with rendering is that total games is not defined
 ```
 
 ```{r}
 p_value <- sum(null_distribution >= upset_rate) / num_exper
+p_value
 ```
 
 ```{r}
 ggplot(data.frame(null_distribution), aes(x = null_distribution)) + 
   geom_histogram(bins = 30, color = "black", fill = "skyblue") +
-  geom_vline(xintercept = p_value, color = "red") + 
+  geom_vline(xintercept = upset_rate, color = "red") + # red line should be at upset rate not p-value
   labs(x = "Proportion of teams that upset a higher seed", 
        y = "Count",
        title = "Sampling distribution under the null hypothesis")
 ```
 
-This plot helps us visualize the null distribution of the data. The red line indicates the p_value is 0.217, and we know that our level of significance is 0.05. The p-value line does not line with the level of significance value in the right tail.
+This plot helps us visualize the null distribution of the data. The red line indicates the upset rate is 0.21875.
 
-The p_value is 0.217, which means we reject the null hypothesis. Our p_value is greater than our level of significance, 0.05. This means that we fail to reject the null hypothesis. The analysis suggests that while lower-seeded teams do have upsets, the proportion of upsets is not as high as 90%. The probability of a lower-seeded team winning is likely not as extraordinary as 90%, according to your results.
+The p_value is 0.0152, which means we reject the null hypothesis. Our p_value is greater than our level of significance, 0.05. This means that we reject the null hypothesis. The analysis suggests that lower-seeded teams do have upsets, and the proportion of upsets is as large as 10%. From our analysis we determined that the upset rate in the round of 64 in the 2023 March Madness tournament was 21.875% which is much larger than our 10% estimate in the hypothesis.
 
 Data Source:
 
