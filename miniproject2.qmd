@@ -1,5 +1,5 @@
 ---
-title: "Mini-Project 2"
+title: "Text Analysis"
 description: |
   Analysis of Netflix Movies and TV Shows
 author: Chloe Denhart

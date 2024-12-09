@@ -1,5 +1,5 @@
 ---
-title: "Mini-Project 3"
+title: "Permutation Tests"
 description: |
   Permentation Test Across March Madness Dataset
 author: Chloe Denhart

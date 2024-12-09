@@ -1,5 +1,5 @@
 ---
-title: "Mini-Project 4"
+title: "SQL Plotting"
 description: |
   Analysis of Ear Frequencies and Mean Absorbancy
 author: Chloe Denhart
