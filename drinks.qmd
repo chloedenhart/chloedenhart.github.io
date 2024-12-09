@@ -10,6 +10,8 @@ execute:
   message: false
 ---
 
+In this project, I analyze the distribution of drink categories using the TidyTuesday *All Drinks* dataset. The dataset provides detailed information about various drink types and their associated categories, which makes it ideal for exploring trends and understanding the popularity of different beverages.
+
 ```{r}
 drinks <- read.csv("all_drinks.csv")
 
@@ -27,6 +29,10 @@ ggplot(drinks, aes(x = strCategory)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-Here is my data viz for food consumption!
+Here I created a bar plot that visualizes the number of drinks in each category. The x-axis represents the drink categories, while the y-axis displays their respective counts. To enhance readability, I rotated the category labels on the x-axis.
 
-Link to data set: <https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-02-18/food_consumption.csv>
+This visualization helps identify which drink categories are most common in the dataset and highlights trends that could inform further research or practical applications in food and beverage studies.
+
+**Citation:**
+
+TidyTuesday Project. (2020, February 18). *All Drinks Dataset*. Retrieved from <https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-02-18/food_consumption.csv>

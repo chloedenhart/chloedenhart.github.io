@@ -10,6 +10,8 @@ execute:
   message: false
 ---
 
+In this project, I analyzed the Netflix Movies and TV Shows dataset to explore trends and insights into the platform's content. This dataset, sourced from Kaggle and made available through TidyTuesday, provides information on titles, genres, release years, ratings, and descriptions.
+
 ```{r}
 netflix_titles <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-04-20/netflix_titles.csv')
 ```
@@ -51,6 +53,24 @@ genre_plot <-ggplot(genre_titles, aes(x = genre)) +
       title = "# of Movies per Genre"
     )
 print(genre_plot)
+```
+
+```{r}
+library(plotly)
+
+# Creating the Plotly interactive plot for genre distribution
+genre_plotly <- genre_titles |>
+  count(genre) |>
+  plot_ly(x = ~genre, y = ~n, type = 'bar', 
+          text = ~paste('Count: ', n), 
+          hoverinfo = 'text') |>
+  layout(title = "Number of Movies per Genre",
+         xaxis = list(title = "Genre"),
+         yaxis = list(title = "Count"))
+
+# Display the interactive plot
+genre_plotly
+
 ```
 
 ```{r}
@@ -100,7 +120,9 @@ My first table, I wanted to change the genre descriptions to all lowercase. I di
 
 My first graph represents that amount of movies/television shows in each genre. From this graph, we can see the most common genres are comedy and drama. The least common genres are crime and reality.
 
-From my second graph we can see the relationship between year, and movie/television show release date. We can infer from this graph that that a lot more movies and television shows were put on Netflix after the mid 2000s.
+I upgraded my first graph by producing a interactive plot with plotly.
+
+From my third graph we can see the relationship between year, and movie/television show release date. We can infer from this graph that that a lot more movies and television shows were put on Netflix after the mid 2000s.
 
 I wanted to play around with the str_length function. So I took the length of all of the descriptions of each title. The mean of the description lengths was 143.1004 string characters.
 
@@ -108,6 +130,7 @@ Lastly, I created a new data frame that takes the title of the show and detects 
 
 **Reference:**
 
-<https://www.kaggle.com/datasets/shivamb/netflix-shows>
+Bansal, Shivam. *Netflix Movies and TV Shows Dataset*. Kaggle.\
+Dataset available at [Netflix Shows Dataset](https://www.kaggle.com/datasets/shivamb/netflix-shows).
 
-Credits to Shivam Bansal for this Dataset.
+*Netflix Shows* from Kaggle, contains information about various movies and TV shows available on Netflix. The dataset includes attributes such as the title, genre, language, release year, and rating of each title. It provides a snapshot of Netflix's catalog and allows for various analyses, such as trends in content release, genre popularity, or the evolution of Netflix's original content over time.

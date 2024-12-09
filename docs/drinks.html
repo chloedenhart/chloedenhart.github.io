@@ -129,10 +129,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
-<span class="menu-text">About</span></a>
-  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-data-viz" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Data Viz</span>
@@ -148,22 +144,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="./miniproject2.html">
- <span class="dropdown-text">Mini-Project 2</span></a>
+ <span class="dropdown-text">Mini-Project 2: Netflix Analysis</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./miniproject3.html">
- <span class="dropdown-text">Mini-Project 3</span></a>
+ <span class="dropdown-text">Mini-Project 3: March Madness</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./miniproject4.html">
- <span class="dropdown-text">Mini-Project 4</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./finalproject.html">
- <span class="dropdown-text">Final Project</span></a>
+ <span class="dropdown-text">Mini-Project 4: SQL Analysis</span></a>
   </li>  
     </ul>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./finalproject.html"> 
+<span class="menu-text">DS002 Projects</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
@@ -217,6 +213,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p>In this project, I analyze the distribution of drink categories using the TidyTuesday <em>All Drinks</em> dataset. The dataset provides detailed information about various drink types and their associated categories, which makes it ideal for exploring trends and understanding the popularity of different beverages.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>drinks <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"all_drinks.csv"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -240,8 +237,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Here is my data viz for food consumption!</p>
-<p>Link to data set: <a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-02-18/food_consumption.csv" class="uri">https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-02-18/food_consumption.csv</a></p>
+<p>Here I created a bar plot that visualizes the number of drinks in each category. The x-axis represents the drink categories, while the y-axis displays their respective counts. To enhance readability, I rotated the category labels on the x-axis.</p>
+<p>This visualization helps identify which drink categories are most common in the dataset and highlights trends that could inform further research or practical applications in food and beverage studies.</p>
+<p><strong>Citation:</strong></p>
+<p>TidyTuesday Project. (2020, February 18). <em>All Drinks Dataset</em>. Retrieved from <a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-02-18/food_consumption.csv" class="uri">https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-02-18/food_consumption.csv</a></p>
 
 
 
