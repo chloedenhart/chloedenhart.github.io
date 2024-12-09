@@ -96,7 +96,7 @@ print(genre_plot)
 year_plot <- 
   ggplot(year_counts, aes(x = release_year , y = count, color = type)) +
   geom_point() +
-  labs(title = "Number of Titles", 
+  labs(title = "# of Titles by Original Release Date", 
        x = "Year", 
        y = "Count"
        )
