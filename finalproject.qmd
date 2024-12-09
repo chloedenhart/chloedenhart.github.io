@@ -8,6 +8,7 @@ format:
     slide-number: true
     show-slide-number: all
     embed-resources: true
+    theme: sky
 execute:
   echo: true
   warning: false
@@ -16,9 +17,9 @@ execute:
 
 ## Overview
 
-   1.  Project 2: Netflix Analysis
-   2.  Project 3: March Madness Permutation Test
-   3.  Project 4: WAI Database
+- Project 2: Netflix Analysis
+- Project 3: March Madness Permutation Test
+- Project 4: WAI Database
 
 ## Netflix Analysis
 -   Categorized Netflix titles by genre, used regular expressions to analyze 6 genres (comedy, horror, documentary, drama, action, crime and reality) 
