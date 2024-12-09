@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "My First Website"
+  title: "Chloe Denhart"
   navbar:
     left:
       - href: index.qmd
@@ -14,9 +14,9 @@ website:
             text: "Food Consumption Analysis"
           - href: drinks.html
             text: "Drinks Analysis"
-          - href: miniproject2.qmd
-          - href: miniproject3.qmd
-          - href: miniproject4.qmd
+      - href: miniproject2.qmd
+      - href: miniproject3.qmd
+      - href: miniproject4.qmd
       - href: finalproject.qmd
         
             
