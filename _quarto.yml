@@ -14,9 +14,9 @@ website:
             text: "Food Consumption Analysis"
           - href: drinks.html
             text: "Drinks Analysis"
-          - href: miniproject2.html
-          - href: miniproject3.html
-          - href: miniproject4.html
+          - href: miniproject2.qmd
+          - href: miniproject3.qmd
+          - href: miniproject4.qmd
       - href: finalproject.qmd
         
             

@@ -14,6 +14,13 @@
     "text": "Netflix Analysis\n\nCategorized Netflix titles by genre, used regular expressions to analyze 6 genres (comedy, horror, documentary, drama, action, crime and reality)\nIdentified amount of titles per genre\nExamined Netflix titles original release dates\nDataset pulled from Kaggle, titled Netflix Movies and TV Shows"
   },
   {
+    "objectID": "finalproject.html#netflix-analysis---cleaned-up-data",
+    "href": "finalproject.html#netflix-analysis---cleaned-up-data",
+    "title": "DS002 Projects",
+    "section": "Netflix Analysis - Cleaned up Data",
+    "text": "Netflix Analysis - Cleaned up Data\n\n\n# A tibble: 5,796 × 2\n   genre  type   \n   &lt;chr&gt;  &lt;chr&gt;  \n 1 Drama  TV Show\n 2 Drama  Movie  \n 3 Horror Movie  \n 4 Action Movie  \n 5 Drama  Movie  \n 6 Drama  TV Show\n 7 Horror Movie  \n 8 Drama  Movie  \n 9 Horror Movie  \n10 Horror Movie  \n# ℹ 5,786 more rows"
+  },
+  {
     "objectID": "finalproject.html#figure-1---movies-per-genre",
     "href": "finalproject.html#figure-1---movies-per-genre",
     "title": "DS002 Projects",
@@ -42,6 +49,13 @@
     "text": "March Madness\n\nConducted a permutation test to analyze upset probabilities in 2023.\nExplored the upset rate for lower-seeded teams in the round of 64.\nNull hypothesis (H0) : the probability that a lower seeded team wins being less than or equal to 90% (Upset win rate ≤ 90%).\nAlternative hypothesis (Ha): the probability that a lower seeded team wins being greater than 90% (Upset win rate &gt; 90%)."
   },
   {
+    "objectID": "finalproject.html#march-madness---data",
+    "href": "finalproject.html#march-madness---data",
+    "title": "DS002 Projects",
+    "section": "March Madness - Data",
+    "text": "March Madness - Data\n\n\n   YEAR TEAM.NO                   TEAM SEED ROUND POWER.RATING\n1  2023     963                 Purdue    1    64         89.5\n2  2023    1010                Arizona    2    64         89.0\n3  2023     946               Virginia    4    64         83.8\n4  2023     987               Iowa St.    6    64         84.5\n5  2023     956              Texas A&M    7    64         85.1\n6  2023     978                Memphis    8    64         84.9\n7  2023     988                   Iowa    8    64         84.4\n8  2023     991               Illinois    9    64         84.5\n9  2023     945          West Virginia    9    64         84.2\n10 2023     949               Utah St.   10    64         83.5\n11 2023     950                    USC   10    64         83.0\n12 2023    1005              Boise St.   10    64         82.6\n13 2023     964             Providence   11    64         82.8\n14 2023     971     North Carolina St.   11    64         81.4\n15 2023    1009            Arizona St.   11    64         80.3\n16 2023     948                    VCU   12    64         81.7\n17 2023    1000                  Drake   12    64         81.2\n18 2023    1003  College of Charleston   12    64         79.8\n19 2023     968           Oral Roberts   12    64         79.2\n20 2023     989                   Iona   13    64         79.6\n21 2023     983               Kent St.   13    64         79.4\n22 2023     981    Louisiana Lafayette   13    64         76.3\n23 2023     994           Grand Canyon   14    64         75.9\n24 2023     953       UC Santa Barbara   14    64         75.5\n25 2023     973            Montana St.   14    64         75.3\n26 2023     984           Kennesaw St.   14    64         73.3\n27 2023     947                Vermont   15    64         76.3\n28 2023    1004                Colgate   15    64         76.2\n29 2023     951          UNC Asheville   15    64         73.0\n30 2023     970      Northern Kentucky   16    64         72.9\n31 2023     955 Texas A&M Corpus Chris   16    64         69.9\n32 2023     992                 Howard   16    64         69.3\n   POWER.RATING.RANK\n1                 50\n2                 59\n3                205\n4                180\n5                158\n6                164\n7                186\n8                180\n9                194\n10               214\n11               228\n12               246\n13               240\n14               291\n15               318\n16               278\n17               302\n18               329\n19               343\n20               335\n21               340\n22               386\n23               394\n24               400\n25               404\n26               422\n27               386\n28               389\n29               427\n30               428\n31               455\n32               459"
+  },
+  {
     "objectID": "finalproject.html#outcome-of-upsets",
     "href": "finalproject.html#outcome-of-upsets",
     "title": "DS002 Projects",
@@ -53,7 +67,7 @@
     "href": "finalproject.html#null-distribution",
     "title": "DS002 Projects",
     "section": "Null Distribution",
-    "text": "Null Distribution\n\nHistogram of null distribution with upset rate highlighted."
+    "text": "Null Distribution"
   },
   {
     "objectID": "finalproject.html#key-insights-1",
@@ -68,6 +82,13 @@
     "title": "DS002 Projects",
     "section": "WAI Database Analysis",
     "text": "WAI Database Analysis\n\nCompared sex-based differences in absorbency for Aithal (2013).\nData pulled from Aithal study in WAI database"
+  },
+  {
+    "objectID": "finalproject.html#data",
+    "href": "finalproject.html#data",
+    "title": "DS002 Projects",
+    "section": "Data",
+    "text": "Data\n\n\n    Identifier Frequency     Sex Mean_Absorbance Unique_Ears\n1  Aithal_2013       250  Female       0.7233140           1\n2  Aithal_2013       250  Female       0.5436131          66\n3  Aithal_2013       250    Male       0.5444056          66\n4  Aithal_2013       250 Unknown       0.6231640           3\n5  Aithal_2013       300  Female       0.5790744           1\n6  Aithal_2013       300  Female       0.5163662          66\n7  Aithal_2013       300    Male       0.5221938          66\n8  Aithal_2013       300 Unknown       0.5825467           3\n9  Aithal_2013       400  Female       0.5225532           1\n10 Aithal_2013       400  Female       0.4348804          66\n11 Aithal_2013       400    Male       0.4434407          66\n12 Aithal_2013       400 Unknown       0.4734422           3\n13 Aithal_2013       500  Female       0.5307322           1\n14 Aithal_2013       500  Female       0.4072390          66\n15 Aithal_2013       500    Male       0.4125729          66\n16 Aithal_2013       500 Unknown       0.4292033           3\n17 Aithal_2013       600  Female       0.4629282           1\n18 Aithal_2013       600  Female       0.4433350          66\n19 Aithal_2013       600    Male       0.4453250          66\n20 Aithal_2013       600 Unknown       0.4624286           3\n21 Aithal_2013       800  Female       0.4296306           1\n22 Aithal_2013       800  Female       0.5140633          66\n23 Aithal_2013       800    Male       0.5132161          66\n24 Aithal_2013       800 Unknown       0.5608810           3\n25 Aithal_2013      1000  Female       0.5344161           1\n26 Aithal_2013      1000  Female       0.6492766          66\n27 Aithal_2013      1000    Male       0.6488667          66\n28 Aithal_2013      1000 Unknown       0.7106753           3\n29 Aithal_2013      1250  Female       0.8438008           1\n30 Aithal_2013      1250  Female       0.7519756          66\n31 Aithal_2013      1250    Male       0.7520200          66\n32 Aithal_2013      1250 Unknown       0.8371913           3\n33 Aithal_2013      1500  Female       0.9016040           1\n34 Aithal_2013      1500  Female       0.7830161          66\n35 Aithal_2013      1500    Male       0.7818892          66\n36 Aithal_2013      1500 Unknown       0.8462829           3\n37 Aithal_2013      2000  Female       0.7489143           1\n38 Aithal_2013      2000  Female       0.7449515          66\n39 Aithal_2013      2000    Male       0.7450622          66\n40 Aithal_2013      2000 Unknown       0.7904039           3\n41 Aithal_2013      2500  Female       0.5603291           1\n42 Aithal_2013      2500  Female       0.5878586          66\n43 Aithal_2013      2500    Male       0.5930597          66\n44 Aithal_2013      2500 Unknown       0.6883140           3\n45 Aithal_2013      3000  Female       0.5569256           1\n46 Aithal_2013      3000  Female       0.5082369          66\n47 Aithal_2013      3000    Male       0.5111097          66\n48 Aithal_2013      3000 Unknown       0.6279454           3\n49 Aithal_2013      4000  Female       0.5518194           1\n50 Aithal_2013      4000  Female       0.4683187          66\n51 Aithal_2013      4000    Male       0.4704967          66\n52 Aithal_2013      4000 Unknown       0.5527944           3\n53 Aithal_2013      5000  Female       0.7667969           1\n54 Aithal_2013      5000  Female       0.6519406          66\n55 Aithal_2013      5000    Male       0.6502550          66\n56 Aithal_2013      5000 Unknown       0.7338458           3\n57 Aithal_2013      6000  Female       0.8838966           1\n58 Aithal_2013      6000  Female       0.7540300          66\n59 Aithal_2013      6000    Male       0.7602814          66\n60 Aithal_2013      6000 Unknown       0.8214159           3\n61 Aithal_2013      8000  Female       0.5207682           1\n62 Aithal_2013      8000  Female       0.6799654          66\n63 Aithal_2013      8000    Male       0.6918249          66\n64 Aithal_2013      8000 Unknown       0.7032796           3"
   },
   {
     "objectID": "finalproject.html#analysis-by-sex-using-the-aithal-2013-study",
