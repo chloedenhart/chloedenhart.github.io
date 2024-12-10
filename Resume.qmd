@@ -1,8 +1,6 @@
 ---
 title: "Resume"
 
-author: Chloe Denhart
-date: September 18, 2024
 output: Denhart, Chloe Resume.pdf
 format: html
 execute: 
