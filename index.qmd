@@ -21,4 +21,4 @@ about:
 
 About this site:
 
-Welcome to my website! I am a student at Pomona College majoring in Economics and minoring in Data Science and Math. At Pomona I an Analyst on the technology team for Saghen Capital Management, and a Associate Consultant for Pomona Consulting Group. I also play on the Pomona Woman's Lacrosse team.
+Welcome to my website! I am a student at Pomona College majoring in Economics and minoring in Data Science and Math. At Pomona I am an Analyst on the technology team for Saghen Capital Management, and an Associate Consultant for Pomona Consulting Group. I also play on the Pomona Woman's Varsity Lacrosse team.
