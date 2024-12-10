@@ -10,7 +10,7 @@ execute:
   message: false
 ---
 
-In this project, I analyze data from the TidyTuesday initiative, focusing on food consumption and its associated carbon dioxide (CO2) emissions. The dataset provides insights into the relationship between different types of food consumption and their environmental impact. By visualizing this relationship, I aim to identify patterns and highlight how dietary choices contribute to CO2 emissions, a critical factor in discussions on climate change and sustainability.
+In this project, I analyze data from the TidyTuesday initiative, focusing on food consumption and its associated carbon dioxide (CO2) emissions. The dataset provides insights into the relationship between different types of food consumption and their environmental impact. By visualizing this relationship, I aim to identify patterns and highlight how consumption choices contribute to CO2 emissions, a critical factor in discussions on climate change and sustainability.
 
 ```{r}
 food <- read.csv("food_consumption.csv")
@@ -28,7 +28,33 @@ ggplot(food, aes(x = co2_emmission, y = consumption)) +
   )
 ```
 
-Using the dataset `food_consumption.csv`, I created a scatter plot that depicts the relationship between food consumption levels (measured in kilograms per capita) and CO2 emissions (measured in kilograms of CO2 equivalent). This plot serves to illustrate whether foods with higher consumption rates also tend to have higher associated CO2 emissions.
+Using the dataset `food_consumption.csv`, I created a scatter plot that depicts the relationship between food consumption levels (measured in kilograms per capital) and CO2 emissions (measured in kilograms of CO2 equivalent). This plot serves to illustrate whether foods with higher consumption rates also tend to have higher associated CO2 emissions.
+
+```{r}
+# Summarize CO2 emissions by food type
+food_emission <- food |>
+  group_by(food_category) |>                              # Group by food category
+  summarize(
+    total_co2 = sum(co2_emmission, na.rm = TRUE),          # Total CO2 emissions per food category
+    avg_co2 = mean(co2_emmission, na.rm = TRUE),           # Average CO2 emissions per food category
+    total_consumption = sum(consumption, na.rm = TRUE)    # Total consumption per food category
+  ) |>
+  arrange(desc(total_co2))                                # Sort by highest total CO2 emissions
+
+# Plot total CO2 emissions by food type
+ggplot(food_emission, aes(x = reorder(food_category, total_co2), y = total_co2)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  coord_flip() +
+  labs(
+    x = "Food Category",
+    y = "Total CO2 Emissions (kg CO2 eq)",
+    title = "Total CO2 Emissions by Food Category"
+  ) +
+  theme_minimal()
+  
+```
+
+This bar chart visualizes the total CO2 emissions associated with different food categories. The food categories are ranked in descending order, with the bars representing the total CO2 emissions (in kilograms of CO2 equivalent) for each category. The chart highlights the environmental impact of various foods, illustrating that certain categories, such as beef, lamb, and cheese, contribute significantly to CO2 emissions due to factors like high resource usage in production and transportation. This visualization serves to emphasize the relationship between food choices and their environmental footprint, encouraging a deeper understanding of how consumption patterns affect climate change.
 
 **Data Source**:\
 <https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-05-26/all_drinks.csv>\

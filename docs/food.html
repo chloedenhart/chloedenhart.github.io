@@ -217,7 +217,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>In this project, I analyze data from the TidyTuesday initiative, focusing on food consumption and its associated carbon dioxide (CO2) emissions. The dataset provides insights into the relationship between different types of food consumption and their environmental impact. By visualizing this relationship, I aim to identify patterns and highlight how dietary choices contribute to CO2 emissions, a critical factor in discussions on climate change and sustainability.</p>
+<p>In this project, I analyze data from the TidyTuesday initiative, focusing on food consumption and its associated carbon dioxide (CO2) emissions. The dataset provides insights into the relationship between different types of food consumption and their environmental impact. By visualizing this relationship, I aim to identify patterns and highlight how consumption choices contribute to CO2 emissions, a critical factor in discussions on climate change and sustainability.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>food <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"food_consumption.csv"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -240,7 +240,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Using the dataset <code>food_consumption.csv</code>, I created a scatter plot that depicts the relationship between food consumption levels (measured in kilograms per capita) and CO2 emissions (measured in kilograms of CO2 equivalent). This plot serves to illustrate whether foods with higher consumption rates also tend to have higher associated CO2 emissions.</p>
+<p>Using the dataset <code>food_consumption.csv</code>, I created a scatter plot that depicts the relationship between food consumption levels (measured in kilograms per capital) and CO2 emissions (measured in kilograms of CO2 equivalent). This plot serves to illustrate whether foods with higher consumption rates also tend to have higher associated CO2 emissions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize CO2 emissions by food type</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>food_emission <span class="ot">&lt;-</span> food <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(food_category) <span class="sc">|&gt;</span>                              <span class="co"># Group by food category</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_co2 =</span> <span class="fu">sum</span>(co2_emmission, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),          <span class="co"># Total CO2 emissions per food category</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_co2 =</span> <span class="fu">mean</span>(co2_emmission, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),           <span class="co"># Average CO2 emissions per food category</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_consumption =</span> <span class="fu">sum</span>(consumption, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)    <span class="co"># Total consumption per food category</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total_co2))                                <span class="co"># Sort by highest total CO2 emissions</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot total CO2 emissions by food type</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(food_emission, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(food_category, total_co2), <span class="at">y =</span> total_co2)) <span class="sc">+</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Food Category"</span>,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Total CO2 Emissions (kg CO2 eq)"</span>,</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Total CO2 Emissions by Food Category"</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="food_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This bar chart visualizes the total CO2 emissions associated with different food categories. The food categories are ranked in descending order, with the bars representing the total CO2 emissions (in kilograms of CO2 equivalent) for each category. The chart highlights the environmental impact of various foods, illustrating that certain categories, such as beef, lamb, and cheese, contribute significantly to CO2 emissions due to factors like high resource usage in production and transportation. This visualization serves to emphasize the relationship between food choices and their environmental footprint, encouraging a deeper understanding of how consumption patterns affect climate change.</p>
 <p><strong>Data Source</strong>:<br>
 <a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-05-26/all_drinks.csv" class="uri">https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-05-26/all_drinks.csv</a><br>
 </p>
