@@ -33,28 +33,32 @@ library(purrr)
 ```
 
 ```{r}
+# Filter for games from the 2023 tournament, specifically the first round (Round of 64)
+# Count the total number of games played in this round
 total_games <- march_madness |>
   filter(YEAR == 2023, ROUND == 64) |>
   nrow()
-total_games
+total_games # Output the total number of games
 ```
 
 ```{r}
+# Filter for lower-seeded teams (seed > 8) winning in earlier rounds
 upsets <- march_madness |>
   filter(YEAR == 2023, ROUND < 64, SEED > 8) |>
   nrow()
-upsets
+upsets # Output the number of upsets
 ```
 
 ```{r}
+# Create a summary table to display results by seed group and outcome
 march_madness |>
   filter(YEAR == 2023) |>
   filter(ROUND <= 64) |>
   mutate(RESULT = ifelse(ROUND < 64, "win", "loss")) |>
-  mutate(seed_group = ifelse(SEED <=8, "top", "bottom")) |>
+  mutate(seed_group = ifelse(SEED <= 8, "top", "bottom")) |>
   group_by(seed_group, RESULT) |>
   summarize(n())
-# upset rate = 0.21875, which is 7/32
+# The upset rate is 0.21875 (7/32)
 ```
 
 ```{r}
@@ -65,32 +69,42 @@ upset_rate
 ```
 
 ```{r}
+# Define a function to simulate the upset ratio under the null hypothesis
 random_choice <- function(num_teams) {
+  # Simulate outcomes based on probabilities (90% lower, 10% higher)
   shuffled_seed <- sample(c("lower", "higher"), num_teams, replace = TRUE, prob = c(0.9, 0.1))
+  # Calculate the proportion of higher seeds winning
   upset_ratio <- mean(shuffled_seed == "higher")
   return(upset_ratio)
 }
 ```
 
 ```{r mapping function}
+# Set seed for reproducibility
 set.seed(47)
+
+# Number of simulations
 num_exper <- 5000
+
+# Generate null distribution using the simulation function
 null_distribution <- map_dbl(1:num_exper, ~ random_choice(total_games))
-# issue with rendering is that total games is not defined
 ```
 
 ```{r}
+# Calculate the p-value
+# Proportion of simulated upset rates greater than or equal to the observed upset rate
 p_value <- sum(null_distribution >= upset_rate) / num_exper
-p_value
+p_value # Output the p-value
 ```
 
 ```{r}
+# Plot the null distribution with the observed upset rate
 ggplot(data.frame(null_distribution), aes(x = null_distribution)) + 
   geom_histogram(bins = 30, color = "black", fill = "skyblue") +
-  geom_vline(xintercept = upset_rate, color = "red") + # red line should be at upset rate not p-value
+  geom_vline(xintercept = upset_rate, color = "red") + # Mark the observed upset rate
   labs(x = "Proportion of teams that upset a higher seed", 
        y = "Count",
-       title = "Sampling distribution under the null hypothesis")
+       title = "Sampling Distribution Under the Null Hypothesis")
 ```
 
 This plot helps us visualize the null distribution of the data. The red line indicates the upset rate is 0.21875.

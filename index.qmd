@@ -1,6 +1,4 @@
 ---
-title: "Chloe Denhart"
-image: spt2.jpeg
 toc: false
 about: 
   template: jolla
@@ -15,6 +13,12 @@ about:
       href: mailto:crdq2023@mymail.pomona.edu
 ---
 
+<!-- Custom HTML block for centering the image and title -->
+<div style="text-align: center;">
+  <img src="headshot.JPG" alt="Chloe Denhart" style="width: 17em; height: auto; border-radius: 50%;" />
+  <h1>Chloe Denhart</h1>
+</div>
+
 About this site:
 
-Welcome to my website! I am a student at Pomona College majoring in Economics and minoring in Data Science. I am a member of the Pomona Woman's Lacrosse team. Outside of Pomona, I am an avid camper and hiker!
+Welcome to my website! I am a student at Pomona College majoring in Economics and minoring in Data Science and Math. At Pomona I an Analyst on the technology team for Saghen Capital Management, and a Associate Consultant for Pomona Consulting Group. I also play on the Pomona Woman's Lacrosse team.

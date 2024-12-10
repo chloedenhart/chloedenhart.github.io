@@ -33,6 +33,15 @@ Here I created a bar plot that visualizes the number of drinks in each category.
 
 This visualization helps identify which drink categories are most common in the dataset and highlights trends that could inform further research or practical applications in food and beverage studies.
 
-**Citation:**
+**Data Source**:\
+<https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-02-18/food_consumption.csv>\
 
-TidyTuesday Project. (2020, February 18). *All Drinks Dataset*. Retrieved from <https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-02-18/food_consumption.csv>
+**Author**: TidyTuesday Project
+
+This data was sourced from the TidyTuesday project, which provides weekly data challenges for the R community. Specifically, the dataset focuses on food consumption:
+
+-   The dataset was updated on February 18, 2020.
+
+-   It includes information on food consumption across different categories and regions, focusing on various food and drink items.
+
+-   The first column of the dataset typically provides the year for each data point.

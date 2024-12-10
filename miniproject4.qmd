@@ -33,7 +33,7 @@ Measurements <- tbl(con_wai, "Measurements")
 PI_Info <- tbl(con_wai, "PI_Info")
 Subjects <- tbl(con_wai, "Subjects")
 
-# collect(Measurements)
+collect(Measurements)
 
 ```
 
@@ -71,19 +71,27 @@ FROM Measurements;
 ```{sql}
 #| connection: con_wai
 #| output.var: ears
+-- Select relevant data from the Measurements and PI_Info tables
 SELECT 
-  m.Identifier,
-  CONCAT(AuthorsShortList, " (", YEAR, ") ", "N= ", COUNT(DISTINCT SubjectNumber, Ear), ";", Instrument) AS Label,
-  m.Frequency,
-  AVG(m.Absorbance) AS Mean_Absorbance,
-  COUNT(DISTINCT m.SubjectNumber, m.Ear) AS Unique_Ears
+  m.Identifier,                                      -- Unique study identifier
+  CONCAT(AuthorsShortList, " (", YEAR, ") ", 
+         "N= ", COUNT(DISTINCT SubjectNumber, Ear), 
+         ";", Instrument) AS Label,                 -- Concatenate authors, year, sample size, and instrument details into a descriptive label
+  m.Frequency,                                      -- Frequency of measurement in Hz
+  AVG(m.Absorbance) AS Mean_Absorbance,             -- Calculate the mean absorbance for each study and frequency
+  COUNT(DISTINCT m.SubjectNumber, m.Ear) AS Unique_Ears -- Count the number of unique ears measured in the study
 FROM Measurements AS m
-JOIN PI_Info AS pi
-  ON m.Identifier = pi.Identifier
-WHERE m.Identifier IN ('Abur_2014', 'Werner_2010', 'Voss_2020', 'Feeny_2017', 'Groon_2015', 'Lewis_2015', 'Liu_2008', 'Rosowski_2012', 'Shahnaz_2006', 'Shaver_2013', 'Sun_2016', 'Voss_1994', 'Voss_2010') AND m.Frequency > 200 AND m.Frequency < 8000
-GROUP BY m.Identifier, Frequency, Instrument;
-
-
+JOIN PI_Info AS pi                                  -- Join Measurements table with PI_Info table
+  ON m.Identifier = pi.Identifier                   -- Match records by the study identifier
+WHERE m.Identifier IN (
+  'Abur_2014', 'Werner_2010', 'Voss_2020', 
+  'Feeny_2017', 'Groon_2015', 'Lewis_2015', 
+  'Liu_2008', 'Rosowski_2012', 'Shahnaz_2006', 
+  'Shaver_2013', 'Sun_2016', 'Voss_1994', 
+  'Voss_2010')                                      -- Filter for the specified 13 studies
+  AND m.Frequency > 200                             -- Include only frequencies above 200 Hz
+  AND m.Frequency < 8000                            -- Include only frequencies below 8000 Hz
+GROUP BY m.Identifier, Frequency, Instrument;       
 ```
 
 ```{r}
@@ -142,18 +150,19 @@ Now we will reproduce a similar graph, finding a study in the same database wher
 ```{sql}
 #| connection: con_wai
 #| output.var: sex_analysis
+-- Select relevant data from the Measurements and Subjects tables
 SELECT 
-  m.Identifier,
-  m.Frequency,
-  s.Sex,
-  AVG(m.Absorbance) AS Mean_Absorbance,
-  COUNT(DISTINCT m.SubjectNumber, m.Ear) AS Unique_Ears
+  m.Identifier,                                   -- Unique study identifier
+  m.Frequency,                                   -- Frequency of measurement in Hz
+  s.Sex,                                         -- Subject's sex (e.g., Male or Female)
+  AVG(m.Absorbance) AS Mean_Absorbance,          -- Calculate the mean absorbance for each frequency and sex group
+  COUNT(DISTINCT m.SubjectNumber, m.Ear) AS Unique_Ears -- Count the unique ears measured per frequency and sex
 FROM Measurements AS m
-JOIN Subjects AS s
-  ON m.SubjectNumber = s.SubjectNumber
-WHERE m.Identifier = 'Aithal_2013'
-GROUP BY m.Frequency, s.Sex
-ORDER BY m.Frequency, s.Sex;
+JOIN Subjects AS s                               -- Join Measurements table with Subjects table
+  ON m.SubjectNumber = s.SubjectNumber           -- Match records by subject number
+WHERE m.Identifier = 'Aithal_2013'               -- Filter for the study "Aithal_2013" only
+GROUP BY m.Frequency, s.Sex                      -- Group results by frequency and subject sex for aggregation
+ORDER BY m.Frequency, s.Sex;                     -- Sort results by frequency and then by sex
 
 ```
 
@@ -231,3 +240,8 @@ Voss, Susan E. Ph.D. Resource Review. Ear and Hearing 40(6):p 1481, November/Dec
 **Aithal:**
 
 Aithal, V., Kei, J., Driscoll, C., & Khan, A. (2013). Normative wideband reflectance in healthy neonates: A cross-sectional study. *Journal of the American Academy of Audiology, 24*(9), 832-842.
+
+```{r}
+# Disconnect from the database
+dbDisconnect(con_wai)
+```

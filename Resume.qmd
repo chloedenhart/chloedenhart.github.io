@@ -1,0 +1,16 @@
+---
+title: "Resume"
+
+author: Chloe Denhart
+date: September 18, 2024
+output: Denhart, Chloe Resume.pdf
+format: html
+execute: 
+  warning: false
+  message: false
+---
+
+You can view and download my [resume](Denhart,%20Chloe%20Resume.pdf).
+
+<iframe src="Denhart, Chloe Resume.pdf" width="600" height="800"></iframe>
+

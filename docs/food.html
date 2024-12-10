@@ -160,6 +160,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="./finalproject.html"> 
 <span class="menu-text">DS002 Projects</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Resume.html"> 
+<span class="menu-text">Resume</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
@@ -220,13 +224,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(food, <span class="fu">aes</span>(<span class="at">x =</span> co2_emmission, <span class="at">y =</span> consumption)) <span class="sc">+</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"CO2 Emissions"</span>,</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Consumption"</span>,</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Relationship food consumption and CO2 emissions"</span>,</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># generating plot, co2 emmisions on x-axis, consumption on y-axis</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(food, <span class="fu">aes</span>(<span class="at">x =</span> co2_emmission, <span class="at">y =</span> consumption)) <span class="sc">+</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"CO2 Emissions"</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Consumption"</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Relationship food consumption and CO2 emissions"</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -236,8 +241,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Using the dataset <code>food_consumption.csv</code>, I created a scatter plot that depicts the relationship between food consumption levels (measured in kilograms per capita) and CO2 emissions (measured in kilograms of CO2 equivalent). This plot serves to illustrate whether foods with higher consumption rates also tend to have higher associated CO2 emissions.</p>
-<p><strong>Citations:</strong><br>
-TidyTuesday Project. (2020, May 26). <em>Food Consumption Dataset</em>. Retrieved from <a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-05-26/all_drinks.csv" class="uri">https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-05-26/all_drinks.csv</a></p>
+<p><strong>Data Source</strong>:<br>
+<a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-05-26/all_drinks.csv" class="uri">https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-05-26/all_drinks.csv</a><br>
+</p>
+<p><strong>Author</strong>: TidyTuesday Project</p>
+<p>This data was sourced from the TidyTuesday project, which focuses on weekly data challenges for the R community. Specifically, the data pertains to food consumption by different drinks:</p>
+<ul>
+<li><p>The dataset was updated on May 26, 2020.</p></li>
+<li><p>It includes data related to the consumption of various drinks, with a focus on their distribution and popularity across different regions.</p></li>
+<li><p>The data spans various food and drink categories and provides detailed consumption statistics.</p></li>
+</ul>
 
 
 

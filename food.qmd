@@ -18,6 +18,7 @@ food <- read.csv("food_consumption.csv")
 library(tidyverse)
 library(ggplot2)
 
+# generating plot, co2 emmisions on x-axis, consumption on y-axis
 ggplot(food, aes(x = co2_emmission, y = consumption)) +
   geom_point() +
   labs(
@@ -29,5 +30,15 @@ ggplot(food, aes(x = co2_emmission, y = consumption)) +
 
 Using the dataset `food_consumption.csv`, I created a scatter plot that depicts the relationship between food consumption levels (measured in kilograms per capita) and CO2 emissions (measured in kilograms of CO2 equivalent). This plot serves to illustrate whether foods with higher consumption rates also tend to have higher associated CO2 emissions.
 
-**Citations:**\
-TidyTuesday Project. (2020, May 26). *Food Consumption Dataset*. Retrieved from <https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-05-26/all_drinks.csv>
+**Data Source**:\
+<https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-05-26/all_drinks.csv>\
+
+**Author**: TidyTuesday Project
+
+This data was sourced from the TidyTuesday project, which focuses on weekly data challenges for the R community. Specifically, the data pertains to food consumption by different drinks:
+
+-   The dataset was updated on May 26, 2020.
+
+-   It includes data related to the consumption of various drinks, with a focus on their distribution and popularity across different regions.
+
+-   The data spans various food and drink categories and provides detailed consumption statistics.

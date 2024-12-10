@@ -169,6 +169,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="./finalproject.html"> 
 <span class="menu-text">DS002 Projects</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Resume.html"> 
+<span class="menu-text">Resume</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
@@ -233,22 +237,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>netflix_titles2 <span class="ot">&lt;-</span> netflix_titles <span class="sc">|&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">listed_in =</span> <span class="fu">str_replace_all</span>(listed_in, <span class="st">"[A-Z]"</span>, tolower))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># changed all captitalized letters to lower in order to analyze</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>netflix_titles2 <span class="ot">&lt;-</span> netflix_titles <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">listed_in =</span> <span class="fu">str_replace_all</span>(listed_in, <span class="st">"[A-Z]"</span>, tolower))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>genre_titles <span class="ot">&lt;-</span> netflix_titles2 <span class="sc">|&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(listed_in, <span class="st">"comedy|comedies|drama|horror|documentary|action|crime|reality"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">genre =</span> <span class="fu">case_when</span>(</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(listed_in, <span class="st">"comedy|comedies"</span>) <span class="sc">~</span> <span class="st">"Comedy"</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(listed_in, <span class="st">"drama"</span>) <span class="sc">~</span> <span class="st">"Drama"</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(listed_in, <span class="st">"horror"</span>) <span class="sc">~</span> <span class="st">"Horror"</span>,</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(listed_in, <span class="st">"documentary"</span>) <span class="sc">~</span> <span class="st">"Documentary"</span>,</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(listed_in, <span class="st">"action"</span>) <span class="sc">~</span> <span class="st">"Action"</span>,</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(listed_in, <span class="st">"crime"</span>) <span class="sc">~</span> <span class="st">"Crime"</span>,</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(listed_in, <span class="st">"reality"</span>) <span class="sc">~</span> <span class="st">"Reality"</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(genre, type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Chose 6 main genres to examine</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>genre_titles <span class="ot">&lt;-</span> netflix_titles2 <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(listed_in, <span class="st">"comedy|comedies|drama|horror|documentary|action|crime|reality"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">genre =</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(listed_in, <span class="st">"comedy|comedies"</span>) <span class="sc">~</span> <span class="st">"Comedy"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(listed_in, <span class="st">"drama"</span>) <span class="sc">~</span> <span class="st">"Drama"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(listed_in, <span class="st">"horror"</span>) <span class="sc">~</span> <span class="st">"Horror"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(listed_in, <span class="st">"documentary"</span>) <span class="sc">~</span> <span class="st">"Documentary"</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(listed_in, <span class="st">"action"</span>) <span class="sc">~</span> <span class="st">"Action"</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(listed_in, <span class="st">"crime"</span>) <span class="sc">~</span> <span class="st">"Crime"</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(listed_in, <span class="st">"reality"</span>) <span class="sc">~</span> <span class="st">"Reality"</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(genre, type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>genre_plot <span class="ot">&lt;-</span><span class="fu">ggplot</span>(genre_titles, <span class="fu">aes</span>(<span class="at">x =</span> genre)) <span class="sc">+</span></span>
@@ -283,15 +289,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the interactive plot</span></span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>genre_plotly</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="plotly html-widget html-fill-item" id="htmlwidget-9b56b04270700337dfe4" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-9b56b04270700337dfe4">{"x":{"visdat":{"f04b753c53d03":["function () ","plotlyVisDat"]},"cur_data":"f04b753c53d03","attrs":{"f04b753c53d03":{"x":{},"y":{},"text":{},"hoverinfo":"text","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Number of Movies per Genre","xaxis":{"domain":[0,1],"automargin":true,"title":"Genre","type":"category","categoryorder":"array","categoryarray":["Action","Comedy","Crime","Drama","Horror","Reality"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Count"},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["Action","Comedy","Crime","Drama","Horror","Reality"],"y":[443,2344,213,2278,308,210],"text":["Count:  443","Count:  2344","Count:  213","Count:  2278","Count:  308","Count:  210"],"hoverinfo":["text","text","text","text","text","text"],"type":"bar","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-5ae3aa3d5fd87ca7e0ab" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-5ae3aa3d5fd87ca7e0ab">{"x":{"visdat":{"12e11429296f4a":["function () ","plotlyVisDat"]},"cur_data":"12e11429296f4a","attrs":{"12e11429296f4a":{"x":{},"y":{},"text":{},"hoverinfo":"text","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Number of Movies per Genre","xaxis":{"domain":[0,1],"automargin":true,"title":"Genre","type":"category","categoryorder":"array","categoryarray":["Action","Comedy","Crime","Drama","Horror","Reality"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Count"},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["Action","Comedy","Crime","Drama","Horror","Reality"],"y":[443,2344,213,2278,308,210],"text":["Count:  443","Count:  2344","Count:  213","Count:  2278","Count:  308","Count:  210"],"hoverinfo":["text","text","text","text","text","text"],"type":"bar","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>year_counts <span class="ot">&lt;-</span> netflix_titles <span class="sc">|&gt;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(release_year, type) <span class="sc">|&gt;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(count))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create data frame that counts amount of titles in within each year</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>year_counts <span class="ot">&lt;-</span> netflix_titles <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(release_year, type) <span class="sc">|&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(count))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>year_plot <span class="ot">&lt;-</span> </span>
@@ -311,16 +318,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>description_length <span class="ot">&lt;-</span> netflix_titles <span class="sc">|&gt;</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">description_length =</span> <span class="fu">str_length</span>(description)) <span class="sc">|&gt;</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(title, description, description_length) <span class="sc">|&gt;</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(description_length))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculates length of descriptions</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>description_length <span class="ot">&lt;-</span> netflix_titles <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">description_length =</span> <span class="fu">str_length</span>(description)) <span class="sc">|&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(title, description, description_length) <span class="sc">|&gt;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(description_length))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>mean_description_length <span class="ot">&lt;-</span> description_length <span class="sc">|&gt;</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_length =</span> <span class="fu">mean</span>(description_length, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>mean_description_length</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculates average length of descriptions</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>mean_description_length <span class="ot">&lt;-</span> description_length <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_length =</span> <span class="fu">mean</span>(description_length, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>mean_description_length</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   mean_length
@@ -329,10 +338,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>rating <span class="ot">&lt;-</span> netflix_titles <span class="sc">|&gt;</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(rating, <span class="st">"^(R|PG-13|PG|G)$"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(title, rating)</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>rating</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tibble with just rating and movie title</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>rating <span class="ot">&lt;-</span> netflix_titles <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(rating, <span class="st">"^(R|PG-13|PG|G)$"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(title, rating)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>rating</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,337 × 2
    title       rating
@@ -357,10 +367,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>From my third graph we can see the relationship between year, and movie/television show release date. We can infer from this graph that that a lot more movies and television shows were put on Netflix after the mid 2000s.</p>
 <p>I wanted to play around with the str_length function. So I took the length of all of the descriptions of each title. The mean of the description lengths was 143.1004 string characters.</p>
 <p>Lastly, I created a new data frame that takes the title of the show and detects the R, PG-13, PG and G ratings</p>
-<p><strong>Reference:</strong></p>
-<p>Bansal, Shivam. <em>Netflix Movies and TV Shows Dataset</em>. Kaggle.<br>
-Dataset available at <a href="https://www.kaggle.com/datasets/shivamb/netflix-shows">Netflix Shows Dataset</a>.</p>
-<p><em>Netflix Shows</em> from Kaggle, contains information about various movies and TV shows available on Netflix. The dataset includes attributes such as the title, genre, language, release year, and rating of each title. It provides a snapshot of Netflix’s catalog and allows for various analyses, such as trends in content release, genre popularity, or the evolution of Netflix’s original content over time.</p>
+<p><strong>Data Source</strong>:<br>
+Netflix Movies and TV Shows Dataset<br>
+</p>
+<p><strong>Author</strong>: Shivam Bansal</p>
+<p>This data was sourced from Kaggle and contains information about various movies and TV shows available on Netflix. Specifically, it includes:</p>
+<ul>
+<li><p>Attributes such as title, genre, language, release year, and rating for each movie or TV show.</p></li>
+<li><p>The dataset offers insights into Netflix’s catalog, making it useful for analyses such as trends in content release, genre popularity, and the evolution of Netflix’s original content over time.</p></li>
+<li><p>The data was last updated on Kaggle by Shivam Bansal.</p></li>
+</ul>
 
 
 

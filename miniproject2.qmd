@@ -24,11 +24,13 @@ library(stringr)
 ```
 
 ```{r}
+# changed all captitalized letters to lower in order to analyze
 netflix_titles2 <- netflix_titles |>
   mutate(listed_in = str_replace_all(listed_in, "[A-Z]", tolower))
 ```
 
 ```{r}
+# Chose 6 main genres to examine
 genre_titles <- netflix_titles2 |>
   filter(str_detect(listed_in, "comedy|comedies|drama|horror|documentary|action|crime|reality")) |>
   mutate(genre = case_when(
@@ -74,6 +76,7 @@ genre_plotly
 ```
 
 ```{r}
+# create data frame that counts amount of titles in within each year
 year_counts <- netflix_titles |>
   group_by(release_year, type) |>
   summarise(count = n()) |>
@@ -93,6 +96,7 @@ print(year_plot)
 ```
 
 ```{r}
+# calculates length of descriptions
 description_length <- netflix_titles |>
   mutate(description_length = str_length(description)) |>
   select(title, description, description_length) |>
@@ -101,6 +105,7 @@ description_length <- netflix_titles |>
 ```
 
 ```{r}
+# calculates average length of descriptions
 mean_description_length <- description_length |>
   summarize(mean_length = mean(description_length, na.rm = TRUE))
 
@@ -108,6 +113,7 @@ mean_description_length
 ```
 
 ```{r}
+# tibble with just rating and movie title
 rating <- netflix_titles |>
   filter(str_detect(rating, "^(R|PG-13|PG|G)$")) |>
   select(title, rating)
@@ -128,9 +134,15 @@ I wanted to play around with the str_length function. So I took the length of al
 
 Lastly, I created a new data frame that takes the title of the show and detects the R, PG-13, PG and G ratings
 
-**Reference:**
+**Data Source**:\
+Netflix Movies and TV Shows Dataset\
 
-Bansal, Shivam. *Netflix Movies and TV Shows Dataset*. Kaggle.\
-Dataset available at [Netflix Shows Dataset](https://www.kaggle.com/datasets/shivamb/netflix-shows).
+**Author**: Shivam Bansal
 
-*Netflix Shows* from Kaggle, contains information about various movies and TV shows available on Netflix. The dataset includes attributes such as the title, genre, language, release year, and rating of each title. It provides a snapshot of Netflix's catalog and allows for various analyses, such as trends in content release, genre popularity, or the evolution of Netflix's original content over time.
+This data was sourced from Kaggle and contains information about various movies and TV shows available on Netflix. Specifically, it includes:
+
+-   Attributes such as title, genre, language, release year, and rating for each movie or TV show.
+
+-   The dataset offers insights into Netflix’s catalog, making it useful for analyses such as trends in content release, genre popularity, and the evolution of Netflix’s original content over time.
+
+-   The data was last updated on Kaggle by Shivam Bansal.
