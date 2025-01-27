@@ -240,4 +240,7 @@ Aithal, V., Kei, J., Driscoll, C., & Khan, A. (2013). Normative wideband reflect
 ```{r}
 # Disconnect from the database
 dbDisconnect(con_wai)
+
+
 ```
+
