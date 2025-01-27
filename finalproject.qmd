@@ -17,12 +17,13 @@ execute:
 
 ## Overview
 
-- Project 2: Netflix Analysis
-- Project 3: March Madness Permutation Test
-- Project 4: WAI Database
+-   Project 2: Netflix Analysis
+-   Project 3: March Madness Permutation Test
+-   Project 4: WAI Database
 
 ## Netflix Analysis
--   Categorized Netflix titles by genre, used regular expressions to analyze 6 genres (comedy, horror, documentary, drama, action, crime and reality) 
+
+-   Categorized Netflix titles by genre, used regular expressions to analyze 6 genres (comedy, horror, documentary, drama, action, crime and reality)
 -   Identified amount of titles per genre
 -   Examined Netflix titles original release dates
 -   Dataset pulled from Kaggle, titled Netflix Movies and TV Shows
@@ -67,7 +68,6 @@ genre_titles
 
 ## Figure 1 - Movies per Genre
 
-
 ```{r}
 #| echo: false
 year_counts <- netflix_titles |>
@@ -91,6 +91,7 @@ print(genre_plot)
 ```
 
 ## Figure 2 - Number of Titles for TV Shows and Movies
+
 ```{r}
 #| echo: false
 year_plot <- 
@@ -104,10 +105,11 @@ print(year_plot)
 ```
 
 ## Key Insights
-- Comedy and Drama are the most popular genres.
-- Crime and Reality are the least popular genres.
-- Notable increase after the early 2000s.
-- Earliest title is a TV show that was originally released in 1925.
+
+-   Comedy and Drama are the most popular genres.
+-   Crime and Reality are the least popular genres.
+-   Notable increase after the early 2000s.
+-   Earliest title is a TV show that was originally released in 1925.
 
 ## March Madness
 
@@ -139,10 +141,9 @@ round_64 <- march_madness |>
 round_64
 ```
 
-
 ## Outcome of Upsets
 
--  Represents outcomes in round of 64 within 4 pools, where bottom seed group is all teams seeded from 8-16 and top seed group is all teams seeded 1-8
+-   Represents outcomes in round of 64 within 4 pools, where bottom seed group is all teams seeded from 8-16 and top seed group is all teams seeded 1-8
 
 ```{r}
 #| echo: false
@@ -207,7 +208,6 @@ p_value
 
 ## Null Distribution
 
-
 ```{r}
 #| echo: false
 ggplot(data.frame(null_distribution), aes(x = null_distribution)) + 
@@ -221,7 +221,7 @@ ggplot(data.frame(null_distribution), aes(x = null_distribution)) +
 ## Key Insights
 
 -   Upset rate: 21.9%, much higher than 10%.
--   P-value: 0.035 — rejected null hypothesis, less than significance level (0.05). 
+-   P-value: 0.035 — rejected null hypothesis, less than significance level (0.05).
 -   Lower-seeded teams can achieve significant upsets.
 
 ## WAI Database Analysis
@@ -266,7 +266,6 @@ SELECT Sex, Identifier
 FROM Subjects
 ```
 
-
 ```{sql}
 #| connection: con_wai
 #| output.var: sex_analysis
@@ -292,7 +291,6 @@ sex_analysis <- sex_analysis |>
   mutate(Sex = str_replace(Sex, "\\bFemake\\b", "Female"))
 sex_analysis
 ```
-
 
 ## Analysis by Sex (using the *Aithal (2013)* study)
 
@@ -342,7 +340,7 @@ sex_analysis |>
 
 ## Key Insights
 
-- Not a major difference between mean absorbency across frequencies between sexes
-- Sex does not influence auditory outcomes
+-   Not a major difference between mean absorbency across frequencies between sexes
+-   Sex does not influence auditory outcomes
 
 ## Questions?

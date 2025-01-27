@@ -14,10 +14,11 @@ about:
 ---
 
 <!-- Custom HTML block for centering the image and title -->
-<div style="text-align: center;">
-  <img src="headshot.JPG" alt="Chloe Denhart" style="width: 17em; height: auto; border-radius: 50%;" />
-  <h1>Chloe Denhart</h1>
-</div>
 
+::: {style="text-align: center;"}
+<img src="headshot.JPG" alt="Chloe Denhart" style="width: 17em; height: auto; border-radius: 50%;"/>
 
-Welcome to my website! I am a student at Pomona College majoring in Economics and minoring in Data Science and Math. At Pomona I am an Analyst on the technology team for Saghen Capital Management, and an Associate Consultant for Pomona Consulting Group. I also play on the Pomona Woman's Varsity Lacrosse team.
+<h1>Chloe Denhart</h1>
+:::
+
+Welcome to my website! I am a student at Pomona College ('27) majoring in Economics and minoring in Data Science and Math. At Pomona I am an Analyst on the technology team for Saghen Capital Management, and an Associate Consultant for Pomona Consulting Group. I also play on the Pomona Woman's Varsity Lacrosse team.

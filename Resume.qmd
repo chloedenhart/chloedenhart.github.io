@@ -8,7 +8,7 @@ execute:
   message: false
 ---
 
-You can view and download my [resume](Denhart,%20Chloe%20Resume.pdf).
+You can view and download my [resume](Denhart,%20Chloe%20Resume%20-%202.pdf).
 
-<iframe src="Denhart, Chloe Resume.pdf" width="600" height="800"></iframe>
-
+<iframe src="Denhart,%20Chloe%20Resume%20-%202.pdf" width="600" height="800">
+</iframe>
