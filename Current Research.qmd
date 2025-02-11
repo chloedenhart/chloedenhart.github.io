@@ -1,0 +1,20 @@
+---
+title: "Current Research"
+subtitle: "EconLLM Lab"
+---
+
+As a research assistant at the EconLLM Lab with Claremont Graduate University, I explore how Large Language Models (LLMs) can replicate human decision-making and be used as economic agents. My work primarily focuses on two areas:
+
+-   **Running economic experiments with LLMs** – Testing how effectively LLMs can stand in for human participants in economic research, which has the potential to reduce costs and improve agent-based modeling. By creating our own LLMs and feeding them structured prompts to simulate economic decision-making, we can explore how AI-driven agents respond to various incentives, market conditions, and strategic interactions—offering new insights into human-like behavior in economic settings.
+
+<!-- -->
+
+-   **Using game theory to evaluate LLMs** – By designing strategic interactions, we analyze the "behavioral traits" of different AI models, helping us understand their decision-making tendencies. More specifically, we recreate classic economic games—such as the Tragedy of the Commons—to study how LLMs replicate cooperative or competitive behavior in small-scale societies, ultimately refining how we generalize human decision-making patterns.
+
+Some of the key projects I’ve contributed to include:
+
+-   **Modeling Human Preferences** – Designing methods to prompt LLMs to mimic the preferences of individuals from different cultural backgrounds, such as the Hadza or Tsimane.
+
+-   **Game-Theoretic LLM Evaluation** – Developing a framework to test how different LLMs behave in strategic settings.
+
+This research sits at the intersection of economics, data science, and AI, and I’m excited about its potential applications in policy and market analysis. You can check out some of our work [here](https://github.com/Bonorinoa/EconLLM_TribesBot)!
