@@ -1,14 +1,11 @@
 ---
 title: "Resume"
-
-output: Denhart, Chloe Resume.pdf
-format: html
+output: html_document
 execute: 
   warning: false
   message: false
 ---
 
-You can view and download my [resume](Denhart,%20Chloe%20Resume%20-%202.pdf).
+You can view and download my [resume](Denhart, Chloe Resume.pdf).
 
-<iframe src="Denhart,%20Chloe%20Resume%20-%202.pdf" width="600" height="800">
-</iframe>
+<iframe src="Denhart, Chloe Resume.pdf" width="100%" height="800" style="border: none;"></iframe>
